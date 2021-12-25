@@ -1,26 +1,38 @@
 import React from 'react';
+
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, NavLink, Route, Routes} from 'react-router-dom';
+
+import NotesPage from './components/NotesPage';
+import TimerPage from './components/TimerPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        <div className='Navgation-bar'>
+          <div className='nav-btn'>
+            <NavLink to="/timer">Таймер</NavLink>
+          </div>
+          <div className='nav-btn'>
+            <NavLink to="/notes">Заметки</NavLink>
+          </div>
+          <div className='nav-btn'>
+            <NavLink to="/stats">Статистика</NavLink>
+          </div>
+          <div className='nav-btn'>
+            <NavLink to="/profile">Профиль</NavLink>
+          </div>
+        </div>
+        
+        <Routes>
+          <Route path={'/timer'} element={<TimerPage></TimerPage>}/>
+          <Route path={'/notes'} element={<NotesPage></NotesPage>}/>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
