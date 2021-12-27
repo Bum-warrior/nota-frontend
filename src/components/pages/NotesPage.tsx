@@ -1,133 +1,84 @@
-import React from 'react'
+import { type } from 'os'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import Explorer from '../Explorer'
-import INote from '../TextEditor/interfaces/INote'
+import Explorer from '../Explorer/Explorer'
+import IFile from '../TextEditor/interfaces/IFile'
+import IFileSystem from '../TextEditor/interfaces/IFileSystem'
+import IFolder from '../TextEditor/interfaces/IFolder'
 import TextEditor from '../TextEditor/TextEditor'
 
 interface NotesPageProps {
-    
+    fs: IFileSystem;
 }
 
 let Container = styled.div`
 display: flex;
 flex-direction: row;
 `
-
-let testNote: INote = {
-    chunks: [
-        {
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },{
-            text: 'Привет.'
-        },
-        {
-            text: 'Меня зовут Олег.'
-        },
-    ]
+let testFileSystem : IFileSystem = {
+    root: {
+        folders:[
+            {
+                name: 'Без Олега',
+                folders:[
+                    {
+                        name: "Скрытая папка"
+                    }
+                ],
+                files:[
+                    {   
+                        name: 'отсутствие',
+                        text: 'Тут Олега нет'
+                    }
+                ]
+            }
+        ],
+        files: [
+            {
+                name: 'Приветствие',
+                text: 'Привет я Олег',
+            },
+            {
+                name: 'Покатствие',
+                text: 'Пока я все еще Олег'
+            },{
+                name: 'Приветствие',
+                text: 'Привет я Олег',
+            },
+            {
+                name: 'Покатствие',
+                text: 'Пока я все еще Олег'
+            },{
+                name: 'Приветствие',
+                text: 'Привет я Олег',
+            },
+            {
+                name: 'Покатствие',
+                text: 'Пока я все еще Олег'
+            }
+        ]
+    }
 }
 
-const NotesPage: React.FunctionComponent<NotesPageProps> = () => {
+const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProps) => {
+    
+    const [currentFile, setcurrentFile] = useState<IFile>();
+    
+    function updateCurrentFile(file: IFile){
+        setcurrentFile(file)
+        console.log(file)
+        console.log('CLICKCCCCC')
+    }
+
     return ( 
     <Container>
-        <Explorer>
+        {/* pass user`s files to explorer on left side and hook to change displayable file*/}
+        <Explorer fileSystem={testFileSystem} openFile={updateCurrentFile} currentFile={currentFile}>
 
         </Explorer>
 
-        <TextEditor note={testNote}>
-            
+        <TextEditor file={currentFile}>
+
         </TextEditor>
     </Container> );
 }

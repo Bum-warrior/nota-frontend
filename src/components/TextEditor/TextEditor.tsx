@@ -1,10 +1,11 @@
-import React, { Children, Component, useState } from 'react'
+import React, { Children, Component, useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
-import INote from './interfaces/INote'
+import IFile from './interfaces/IFile'
+import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
 
 
 interface TextEditorProps {
-    note: INote;
+    file?: IFile;
 }
 
 let EditorContainer = styled.div`
@@ -12,59 +13,47 @@ background-color: #C4C4C4;
 position: absolute;
 top:45px;
 bottom: 0;
-left:10%;
+left:18%;
 right:0;
 `
-let Editor = styled.div`
+let Editor = styled(ContentEditable)`
 background-color: #FFFFFF;
 line-height: 1.5;
 text-align: justify;
 outline: none;
-height:96%;
+height:92%;
 overflow-y:scroll;
 display: flex;
 flex-direction: column;
-padding: 2% 50px 0px;
+padding: 3% 20%;
 `
-let TextAreaCustom = styled.textarea`
-border: 0px;
-resize: none;
-outline: none;
-margin-top: 25px;
-width: 100%;
-min-height: 600px;
-height: fit-content;
-`
+
 
 let ViewLine = styled.div`
 
 `
 
 const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorProps) => {
-    const [textareaText, settextareaText] = useState([]);
+
 
     return (
         <EditorContainer>
-            {/* Editor need clickhandler */}
-            <Editor>
-                {
-                    props.note.chunks.map(item => {
-                        return <ViewLine>{item.text}</ViewLine>
-                    })
-                }
+            <Editor
+              html={props.file? props.file.text : ''} // innerHTML of the editable div
+              disabled={props.file? false : true}       // use true to disable editing
+              onChange={(e) => {onMyChange(e, props)}} // handle innerHTML change
+              tagName='article' // Use a custom HTML tag (uses a div by default)
+              >
             </Editor>
         </EditorContainer>
     );
 }
- 
-function addElement(text: string): void{
 
-}
-
-function onMyChange(e: React.ChangeEvent<HTMLTextAreaElement>){
-    const newValue = e.currentTarget.value;
-    console.log(newValue);
-    return undefined
+function onMyChange(e: ContentEditableEvent, props: TextEditorProps){
+    const newValue = e.currentTarget.innerHTML;
+    if(props!=undefined && props.file!=undefined){
+        props.file.text=newValue;
+    }
 }
 
 export default TextEditor;
