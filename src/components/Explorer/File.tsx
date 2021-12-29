@@ -3,17 +3,17 @@ import styled from 'styled-components'
 import { DataType, ICONS } from './IconsProvider';
 
 
-interface DataLineProps {
+export interface FileProps {
     active: boolean;
-    onClick: React.MouseEventHandler<HTMLDivElement> & Function;
+    onClick?: React.MouseEventHandler<HTMLDivElement> & Function;
     datatype?: DataType;
     children?: React.ReactNode | React.ReactChild;
 }
 
 
 
-let Line = styled.div<DataLineProps>`
-height: 26px;
+let Line = styled.div<FileProps>`
+min-height: 26px;
 border: 0px;
 background-color: ${(props) => (props.active ? '#57B6CB' : '#E8E8E8')};
 display: flex;
@@ -22,7 +22,6 @@ display: flex;
     cursor: pointer;
 }
 img{
-    self-align: flex-start;
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -33,7 +32,7 @@ div{
 }
 `
 
-const File: React.FunctionComponent<DataLineProps> = (props: DataLineProps) => {
+const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     return ( 
         <Line active={props.active} onClick={props.onClick}>
             <img src={ICONS[props.datatype || 0]} height={'20px'} width={'20px'}></img>

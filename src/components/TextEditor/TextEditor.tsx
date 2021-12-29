@@ -7,30 +7,25 @@ import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
 interface TextEditorProps {
     file?: IFile;
 }
-
+// 
 let EditorContainer = styled.div`
-background-color: #C4C4C4;
+background-color: #FFFFFF;
 position: absolute;
-top:45px;
+top:5vh;
 bottom: 0;
 left:18%;
 right:0;
+overflow-y:scroll;
 `
 let Editor = styled(ContentEditable)`
 background-color: #FFFFFF;
 line-height: 1.5;
 text-align: justify;
 outline: none;
-height:92%;
-overflow-y:scroll;
 display: flex;
 flex-direction: column;
-padding: 3% 20%;
-`
-
-
-let ViewLine = styled.div`
-
+margin: 3% 20%;
+padding-bottom: 30px;
 `
 
 const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorProps) => {
