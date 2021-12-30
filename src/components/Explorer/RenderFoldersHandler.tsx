@@ -14,7 +14,7 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
         <div>
             {
                 props.root.folders?.map((item) => {
-                    return <Folder nestingLvl={0} datatype={DataType.Folder} active={false} 
+                    return <Folder datatype={DataType.Folder} active={false} 
                     openFile={props.openFile} currentFile={props.currentFile}
                     root={item}
                     onClick={() => {

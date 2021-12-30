@@ -21,8 +21,9 @@ height: 95vh;
 background-color: #E8E8E8;
 display: flex;
 flex-direction: column;
-overflow-x: scroll;
+overflow-x: hidden;
 overflow-y: scroll;
+scrollbar-width: 2em;
 `
 
 const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps) => {

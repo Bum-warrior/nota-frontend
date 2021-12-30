@@ -26,9 +26,11 @@ img{
     margin-bottom: auto;
 }
 div{
+    max-height: 26px;
     margin-left: 5px;
     margin-top: auto;
     margin-bottom: auto;
+    white-space: nowrap;
 }
 `
 

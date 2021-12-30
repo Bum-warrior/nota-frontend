@@ -7,7 +7,7 @@ import RenderFilesHandler, {RenderFilesHandlerProps} from './RenderFilesHandler'
 import RenderFoldersHandler, {RenderFoldersHandlerProps} from './RenderFoldersHandler'
 
 interface FolderProps extends FileProps, RenderFilesHandlerProps, RenderFoldersHandlerProps{
-    nestingLvl: number;
+    
 }
 
 let FolderContainer = styled.div`
@@ -29,7 +29,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
             <File active={props.active} datatype={props.datatype} onClick={()=>{
                 setsubMenuVisibleState(subMenuVisibleState? false : true)
             }}>{props.root.name}</File>
-            <SubMenu nestingLvl={props.nestingLvl+1} root={props.root} openFile={props.openFile} currentFile={props.currentFile} active={subMenuVisibleState}>
+            <SubMenu root={props.root} openFile={props.openFile} currentFile={props.currentFile} active={subMenuVisibleState}>
                 <RenderFoldersHandler root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFoldersHandler>
                 <RenderFilesHandler root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFilesHandler>
             </SubMenu>
