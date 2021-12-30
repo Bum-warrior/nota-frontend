@@ -6,7 +6,8 @@ import Folder from './Folder';
 import IFileSystem from '../TextEditor/interfaces/IFileSystem';
 import IFile from '../TextEditor/interfaces/IFile';
 import IFolder from '../TextEditor/interfaces/IFolder';
-import RenderFolderHandler from './RenderFolderHandler';
+import RenderFoldersHandler from './RenderFoldersHandler';
+import RenderFilesHandler from './RenderFilesHandler';
 
 export interface ExplorerProps {
     fileSystem: IFileSystem;
@@ -16,7 +17,7 @@ export interface ExplorerProps {
 
 let ExlporerContainer = styled.div`
 width: 18%;
-max-height: 95vh;
+height: 95vh;
 background-color: #E8E8E8;
 display: flex;
 flex-direction: column;
@@ -28,8 +29,10 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
 
     return ( 
         <ExlporerContainer>
-            <RenderFolderHandler root={props.fileSystem.root} 
+            <RenderFoldersHandler root={props.fileSystem.root} 
             currentFile={props.currentFile} openFile={props.openFile}/>
+            <RenderFilesHandler root={props.fileSystem.root} 
+            currentFile={props.currentFile} openFile={props.openFile}></RenderFilesHandler>
         </ExlporerContainer>
     );
 }

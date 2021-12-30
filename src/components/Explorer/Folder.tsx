@@ -3,9 +3,11 @@ import { useState } from 'react';
 import styled from 'styled-components'
 import File from './File'
 import {FileProps} from './File'
+import RenderFilesHandler, {RenderFilesHandlerProps} from './RenderFilesHandler';
+import RenderFoldersHandler, {RenderFoldersHandlerProps} from './RenderFoldersHandler'
 
-interface FolderProps extends FileProps{
-    
+interface FolderProps extends FileProps, RenderFilesHandlerProps, RenderFoldersHandlerProps{
+    nestingLvl: number;
 }
 
 let FolderContainer = styled.div`
@@ -14,9 +16,10 @@ let FolderContainer = styled.div`
 
 let SubMenu = styled.div<FolderProps>`
     display: ${(props) => (props.active? 'none' : 'block')};
-    min-height: 100px;
+    min-height: 26px;
+    height: fit-content;
     min-width: 100%;
-    background-color: purple;
+    margin-left: 20px;
 `
 
 const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
@@ -25,8 +28,11 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
         <FolderContainer>
             <File active={props.active} datatype={props.datatype} onClick={()=>{
                 setsubMenuVisibleState(subMenuVisibleState? false : true)
-            }}>a1</File>
-            <SubMenu active={subMenuVisibleState}/>
+            }}>{props.root.name}</File>
+            <SubMenu nestingLvl={props.nestingLvl+1} root={props.root} openFile={props.openFile} currentFile={props.currentFile} active={subMenuVisibleState}>
+                <RenderFoldersHandler root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFoldersHandler>
+                <RenderFilesHandler root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFilesHandler>
+            </SubMenu>
         </FolderContainer>      
     );
 }
