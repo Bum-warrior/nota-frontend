@@ -1,0 +1,20 @@
+.editor-container{
+    background-color: #FFFFFF;
+    position: absolute;
+    top:5vh;
+    bottom: 0;
+    left:18%;
+    right:0;
+    overflow-y:scroll;
+}
+
+.editor{
+    background-color: #FFFFFF;
+    line-height: 1.5;
+    text-align: justify;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    margin: 3% 20%;
+    padding-bottom: 30px;
+}

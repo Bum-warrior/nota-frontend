@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
 import { DataType } from './IconsProvider';
 import File from './File';
 import Folder from './Folder';
@@ -15,26 +14,16 @@ export interface ExplorerProps {
     currentFile: IFile | undefined;
 }
 
-let ExlporerContainer = styled.div`
-width: 18%;
-height: 95vh;
-background-color: #E8E8E8;
-display: flex;
-flex-direction: column;
-overflow-x: hidden;
-overflow-y: scroll;
-scrollbar-width: 2em;
-`
 
 const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps) => {
 
     return ( 
-        <ExlporerContainer>
+        <div className='explorer-container'>
             <RenderFoldersHandler root={props.fileSystem.root} 
             currentFile={props.currentFile} openFile={props.openFile}/>
             <RenderFilesHandler root={props.fileSystem.root} 
             currentFile={props.currentFile} openFile={props.openFile}></RenderFilesHandler>
-        </ExlporerContainer>
+        </div>
     );
 }
  

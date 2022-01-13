@@ -1,0 +1,39 @@
+.explorer-container{
+    width: 18%;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: 2em;
+}
+
+.file-line{
+    border: 4px solid var(--file-color);
+    min-height: 26px;
+    border: 0px;
+    display: flex;
+    &:hover{
+        
+        cursor: pointer;
+    }
+    img{
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    div{
+        max-height: 26px;
+        margin-left: 5px;
+        margin-top: auto;
+        margin-bottom: auto;
+        white-space: nowrap;
+    }
+}
+
+.folder-submenu{
+    // TODO: HERE
+    display: block;
+    min-height: 26px;
+    min-width: 100%;
+    margin-left: 20px;
+}

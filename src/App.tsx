@@ -1,7 +1,7 @@
 import React from 'react';
 
 import logo from './logo.svg';
-import './App.scss';
+import './scss/App.scss';
 import { BrowserRouter, NavLink, Route, Routes} from 'react-router-dom';
 
 import NotesPage from './components/pages/NotesPage';
@@ -10,7 +10,7 @@ import TimerPage from './components/pages/TimerPage';
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div data-theme='light'>
         <div className='Navgation-bar'>
           <div className='nav-btn'>
             <NavLink to="/timer">Таймер</NavLink>

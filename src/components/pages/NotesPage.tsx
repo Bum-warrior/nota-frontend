@@ -1,7 +1,6 @@
 import { type } from 'os'
 import React, { useState } from 'react'
 import { text } from 'stream/consumers'
-import styled from 'styled-components'
 import Explorer from '../Explorer/Explorer'
 import IFile from '../TextEditor/interfaces/IFile'
 import IFileSystem from '../TextEditor/interfaces/IFileSystem'
@@ -12,10 +11,7 @@ interface NotesPageProps {
     
 }
 
-let Container = styled.div`
-display: flex;
-flex-direction: row;
-`
+
 let testFileSystem : IFileSystem = {
     root: {
         folders:[
@@ -176,11 +172,11 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     }
 
     return ( 
-    <Container>
+    <div className='notes-page'>
         {/* pass user`s files to explorer on left side and hook to change displayable file*/}
         <Explorer fileSystem={testFileSystem} openFile={updateCurrentFile} currentFile={currentFile}/>
         <TextEditor file={currentFile}/>
-    </Container> );
+    </div> );
 }
  
 export default NotesPage;

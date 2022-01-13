@@ -11,37 +11,14 @@ export interface FileProps {
 }
 
 
-
-let Line = styled.div<FileProps>`
-min-height: 26px;
-border: 0px;
-background-color: ${(props) => (props.active ? '#57B6CB' : '#E8E8E8')};
-display: flex;
-&:hover{
-    background-color: ${(props) => (props.active ? '#57B6CB' : '#b1dde7')};
-    cursor: pointer;
-}
-img{
-    margin-top: auto;
-    margin-bottom: auto;
-}
-div{
-    max-height: 26px;
-    margin-left: 5px;
-    margin-top: auto;
-    margin-bottom: auto;
-    white-space: nowrap;
-}
-`
-
 const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     return ( 
-        <Line active={props.active} onClick={props.onClick}>
+        <div className='file-line' onClick={props.onClick}>
             <img src={ICONS[props.datatype || 0]} height={'20px'} width={'20px'}></img>
             <div>
                 {props.children}    
             </div>
-        </Line>
+        </div>
     );
 }
  

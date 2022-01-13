@@ -1,0 +1,10 @@
+:root div[data-theme='dark'] *{
+    --navbar-color: #7c6307;
+    --file-color:black;
+}
+  
+  
+:root div[data-theme='light'] *{
+    --navbar-color: #E8B912;
+    --file-color: white;
+}
