@@ -6,6 +6,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: 2em;
+    background-color: var(--background-file-explorer);
 }
 
 .file-line{
@@ -13,8 +14,8 @@
     min-height: 26px;
     border: 0px;
     display: flex;
+    color: var(--text-color);
     &:hover{
-        
         cursor: pointer;
     }
     img{
@@ -30,10 +31,12 @@
     }
 }
 
+.true{
+    background-color: var(--active-file-bg);
+    color: var(--active-file-text);
+}
+
 .folder-submenu{
-    // TODO: HERE
-    display: block;
     min-height: 26px;
     min-width: 100%;
-    margin-left: 20px;
 }

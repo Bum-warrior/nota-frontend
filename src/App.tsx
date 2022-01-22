@@ -6,11 +6,12 @@ import { BrowserRouter, NavLink, Route, Routes} from 'react-router-dom';
 
 import NotesPage from './components/pages/NotesPage';
 import TimerPage from './components/pages/TimerPage';
+import TestPage from './components/pages/TestPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <div data-theme='light'>
+      <div data-theme='dark'>
         <div className='Navgation-bar'>
           <div className='nav-btn'>
             <NavLink to="/timer">Таймер</NavLink>
@@ -22,13 +23,14 @@ function App() {
             <NavLink to="/stats">Статистика</NavLink>
           </div>
           <div className='nav-btn'>
-            <NavLink to="/profile">Профиль</NavLink>
+            <NavLink to="/test">Test</NavLink>
           </div>
         </div>
         
         <Routes>
           <Route path={'/timer'} element={<TimerPage></TimerPage>}/>
           <Route path={'/notes'} element={<NotesPage></NotesPage>}/>
+          <Route path={'/test'} element={<TestPage></TestPage>}/>
         </Routes>
       </div>
     </BrowserRouter>

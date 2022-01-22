@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { DataType } from './IconsProvider';
 import File from './File';
 import Folder from './Folder';
@@ -16,12 +16,16 @@ export interface ExplorerProps {
 
 
 const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps) => {
+    const [test, settest] = useState(false);
+    const [lastMenu, setlastMenu] = useState(() => settest);
 
     return ( 
         <div className='explorer-container'>
-            <RenderFoldersHandler root={props.fileSystem.root} 
+            <RenderFoldersHandler lastMenu={lastMenu} setlastMenu={setlastMenu}
+            nestLvl={0} root={props.fileSystem.root}
             currentFile={props.currentFile} openFile={props.openFile}/>
-            <RenderFilesHandler root={props.fileSystem.root} 
+            <RenderFilesHandler lastMenu={lastMenu} setlastMenu={setlastMenu}
+            nestLvl={0} root={props.fileSystem.root} 
             currentFile={props.currentFile} openFile={props.openFile}></RenderFilesHandler>
         </div>
     );

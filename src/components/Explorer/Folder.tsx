@@ -11,16 +11,21 @@ interface FolderProps extends FileProps, RenderFilesHandlerProps, RenderFoldersH
 
 const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
     const [subMenuVisibleState, setsubMenuVisibleState] = useState(false);
+
+    //if submenu visible it will contain files and folders, else none
+    let subMenu = subMenuVisibleState ? 
+        <div className='folder-submenu'>
+            <RenderFoldersHandler lastMenu={props.lastMenu} setlastMenu={props.setlastMenu} nestLvl={props.nestLvl+1} root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFoldersHandler>
+            <RenderFilesHandler lastMenu={props.lastMenu} setlastMenu={props.setlastMenu} nestLvl={props.nestLvl+1} root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFilesHandler>
+        </div> : null
+    
     return (
         <div>
-            <File active={props.active} datatype={props.datatype} onClick={()=>{
+            <File lastMenu={props.lastMenu} setlastMenu={props.setlastMenu} nestLvl={props.nestLvl} active={props.active} datatype={props.datatype} onClick={()=>{
                 setsubMenuVisibleState(subMenuVisibleState? false : true)
             }}>{props.root.name}</File>
             {/* root={props.root} openFile={props.openFile} currentFile={props.currentFile} active={subMenuVisibleState} */}
-            <div className='folder-submenu'>
-                <RenderFoldersHandler root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFoldersHandler>
-                <RenderFilesHandler root={props.root} openFile={props.openFile} currentFile={props.currentFile}></RenderFilesHandler>
-            </div>
+            {subMenu}
         </div>      
     );
 }
