@@ -7,7 +7,7 @@
     border-radius: 6px;
     //border: 1px solid rgba(226, 226, 226, 0.753);
     min-width: 150px;
-    min-height: 99px;
+    min-height: 132px;
     display: flex;
     justify-content: space-evenly;
     
@@ -33,7 +33,7 @@
         }
 
         &>div{
-            margin-left: 5px;
+            margin-left: 10px;
             min-height: 33px;
             display:table;
             &>span{

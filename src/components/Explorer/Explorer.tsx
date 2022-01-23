@@ -1,32 +1,33 @@
-import React, { useContext, useState } from 'react';
-import { DataType } from './IconsProvider';
-import File from './File';
-import Folder from './Folder';
-import IFileSystem from '../TextEditor/interfaces/IFileSystem';
+import React, {useState } from 'react';
 import IFile from '../TextEditor/interfaces/IFile';
-import IFolder from '../TextEditor/interfaces/IFolder';
 import RenderFoldersHandler from './RenderFoldersHandler';
 import RenderFilesHandler from './RenderFilesHandler';
+import IRenderProps from './IRenderProps';
 
-export interface ExplorerProps {
-    fileSystem: IFileSystem;
+export interface ExplorerProps extends Pick<IRenderProps, 'fileSys'>{
     openFile: Function;
     currentFile: IFile | undefined;
 }
 
 
 const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps) => {
-    const [test, settest] = useState(false);
-    const [lastMenu, setlastMenu] = useState(() => settest);
+    const [lastMenu, setlastMenu] = useState(() => Function);
 
     return ( 
         <div className='explorer-container'>
-            <RenderFoldersHandler lastMenu={lastMenu} setlastMenu={setlastMenu}
-            nestLvl={0} root={props.fileSystem.root}
-            currentFile={props.currentFile} openFile={props.openFile}/>
-            <RenderFilesHandler lastMenu={lastMenu} setlastMenu={setlastMenu}
-            nestLvl={0} root={props.fileSystem.root} 
-            currentFile={props.currentFile} openFile={props.openFile}></RenderFilesHandler>
+            <RenderFoldersHandler ctxMenu={{lastMenu, setlastMenu}}
+            nestLvl={0} 
+            root={props.fileSys.fs}
+            currentItem={props.fileSys.fs}
+            currentFile={props.currentFile} 
+            openFile={props.openFile} 
+            fileSys={props.fileSys}/>
+            <RenderFilesHandler ctxMenu={{lastMenu, setlastMenu}}
+            nestLvl={0} 
+            root={props.fileSys.fs} 
+            fileSys={props.fileSys}
+            currentFile={props.currentFile} 
+            openFile={props.openFile}></RenderFilesHandler>
         </div>
     );
 }

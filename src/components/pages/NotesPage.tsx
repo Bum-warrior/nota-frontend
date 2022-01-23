@@ -13,22 +13,44 @@ interface NotesPageProps {
 
 
 let testFileSystem : IFileSystem = {
+    
     root: {
+        uniqueId: Math.random().toString(16).slice(2),
         folders:[
             {
                 name: 'Без Олега',
+                systemUnitType: 'folder',
+                uniqueId: Math.random().toString(16).slice(2),
                 folders:[
                     {
                         name: "Вложенная пустая папка папка",
+                        systemUnitType: 'folder',
+                        uniqueId: Math.random().toString(16).slice(2),
                         folders: [
                             {
-                                name: 'Дважды-вложенная-папка-с-файлом-ыыыаааыыыаааыыыаааыыыааа',
+                                name: 'Дважды-вложенная-папка-с-файлом',
+                                systemUnitType: 'folder',
+                                uniqueId: Math.random().toString(16).slice(2),
                                 files: [
                                     {
                                         name: 'Все заебись',
-                                        text: 'Работает классно'
+                                        text: 'Работает классно',
+                                        systemUnitType: 'file',
+                                        uniqueId: Math.random().toString(16).slice(2),
                                     }
                                 ]
+                            }
+                        ]
+                    },{
+                        name: "Вложенная пустая папка папка 2",
+                        systemUnitType: 'folder',
+                        uniqueId: Math.random().toString(16).slice(2),
+                        files: [
+                            {
+                                name: 'Все заебись',
+                                text: 'Работает классно',
+                                systemUnitType: 'file',
+                                uniqueId: Math.random().toString(16).slice(2),
                             }
                         ]
                     }
@@ -36,7 +58,101 @@ let testFileSystem : IFileSystem = {
                 files:[
                     {   
                         name: 'Вложенный файлик',
-                        text: 'Тут Олега нет'
+                        text: 'Тут Олега нет',
+                        systemUnitType: 'file',
+                        uniqueId: Math.random().toString(16).slice(2),
+                    }
+                ]
+            },{
+                name: 'Без Олега',
+                systemUnitType: 'folder',
+                uniqueId: Math.random().toString(16).slice(2),
+                folders:[
+                    {
+                        name: "Вложенная пустая папка папка",
+                        systemUnitType: 'folder',
+                        uniqueId: Math.random().toString(16).slice(2),
+                        folders: [
+                            {
+                                name: 'Дважды-вложенная-папка-с-файлом',
+                                systemUnitType: 'folder',
+                                uniqueId: Math.random().toString(16).slice(2),
+                                files: [
+                                    {
+                                        name: 'Все заебись',
+                                        text: 'Работает классно',
+                                        systemUnitType: 'file',
+                                        uniqueId: Math.random().toString(16).slice(2),
+                                    }
+                                ]
+                            }
+                        ]
+                    },{
+                        name: "Вложенная пустая папка папка 2",
+                        systemUnitType: 'folder',
+                        uniqueId: Math.random().toString(16).slice(2),
+                        files: [
+                            {
+                                name: 'Все заебись',
+                                text: 'Работает классно',
+                                systemUnitType: 'file',
+                                uniqueId: Math.random().toString(16).slice(2),
+                            }
+                        ]
+                    }
+                ],
+                files:[
+                    {   
+                        name: 'Вложенный файлик',
+                        text: 'Тут Олега нет',
+                        systemUnitType: 'file',
+                        uniqueId: Math.random().toString(16).slice(2),
+                    }
+                ]
+            },{
+                name: 'Без Олега',
+                systemUnitType: 'folder',
+                uniqueId: Math.random().toString(16).slice(2),
+                folders:[
+                    {
+                        name: "Вложенная пустая папка папка",
+                        systemUnitType: 'folder',
+                        uniqueId: Math.random().toString(16).slice(2),
+                        folders: [
+                            {
+                                name: 'Дважды-вложенная-папка-с-файлом',
+                                systemUnitType: 'folder',
+                                uniqueId: Math.random().toString(16).slice(2),
+                                files: [
+                                    {
+                                        name: 'Все заебись',
+                                        text: 'Работает классно',
+                                        systemUnitType: 'file',
+                                        uniqueId: Math.random().toString(16).slice(2),
+                                    }
+                                ]
+                            }
+                        ]
+                    },{
+                        name: "Вложенная пустая папка папка 2",
+                        systemUnitType: 'folder',
+                        uniqueId: Math.random().toString(16).slice(2),
+                        files: [
+                            {
+                                name: 'Все заебись',
+                                text: 'Работает классно',
+                                systemUnitType: 'file',
+                                uniqueId: Math.random().toString(16).slice(2),
+                            }
+                        ]
+                    }
+                ],
+                files:[
+                    {   
+                        name: 'Вложенный файлик',
+                        text: 'Тут Олега нет',
+                        systemUnitType: 'file',
+                        uniqueId: Math.random().toString(16).slice(2),
                     }
                 ]
             }
@@ -45,128 +161,201 @@ let testFileSystem : IFileSystem = {
             {
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },{
                 name: 'Я Обычный файлик',
                 text: 'Привет я Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
             {
                 name: 'Я тоже',
-                text: 'Пока я все еще Олег'
+                text: 'Пока я все еще Олег',
+                systemUnitType: 'file',
+                uniqueId: Math.random().toString(16).slice(2),
             },
         ]
+        
     }
 }
+
+interface ITextProvider{
+    text: string,
+}
+
 
 const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProps) => {
     
     const [currentFile, setcurrentFile] = useState<IFile>();
-    
+    const [fileSystem, setfileSystem] = useState(testFileSystem.root);
+
     function updateCurrentFile(file: IFile){
         setcurrentFile(file)
     }
@@ -174,8 +363,8 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     return ( 
     <div className='notes-page'>
         {/* pass user`s files to explorer on left side and hook to change displayable file*/}
-        <Explorer fileSystem={testFileSystem} openFile={updateCurrentFile} currentFile={currentFile}/>
-        <TextEditor file={currentFile}/>
+            <Explorer openFile={updateCurrentFile} currentFile={currentFile} fileSys={{fs: fileSystem, changeFS: setfileSystem}}   />
+            <TextEditor file={currentFile}/>
     </div> );
 }
  

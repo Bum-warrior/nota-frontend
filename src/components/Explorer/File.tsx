@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { System } from 'typescript';
+import IFile from '../TextEditor/interfaces/IFile';
+import IFileSystemObject from '../TextEditor/interfaces/IFileSystemObject';
+import IFolder from '../TextEditor/interfaces/IFolder';
 import { DataType, ICONS } from './IconsProvider';
 import IRenderProps from './IRenderProps';
 
@@ -7,31 +11,28 @@ import IRenderProps from './IRenderProps';
 export interface FileProps extends Omit<IRenderProps, 'root'>{
     active: boolean;
     nestLvl: number;
+    currentItem: IFile | IFolder;
     onClick?: React.MouseEventHandler<HTMLDivElement> & Function;
     datatype?: DataType;
     children?: React.ReactNode | React.ReactChild;
-    
 }
 
 
 const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     const [isShown, setisShown] = useState(false);
     const [position, setposition] = useState({x: 0, y: 0});
-
+    const [folderIndex, setfolderIndex] = useState(0);
+    const [folder, setfolder] = useState<IFolder[]>();
+    
     function showCtxMenu(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault();
-        //let contextMenuCollection = document.getElementsByClassName('ctx-menu-container');
-        // for( let i = 0; i < contextMenuCollection.length; i++){
-        //     if (!contextMenuCollection[i].classList.contains('hiden')){
-        //         contextMenuCollection[i].classList.add('hiden')
-        //     }
-        // }
-        console.log(props.lastMenu)
-        if (props.lastMenu !== undefined){
-            props.lastMenu()
-            props.setlastMenu(() => hideCtxMenu)
+        
+        //check if another ctxmenu exist and close it by hook
+        if (props.ctxMenu.lastMenu !== undefined){
+            props.ctxMenu.lastMenu()
+            props.ctxMenu.setlastMenu(() => hideCtxMenu)
         } else {
-            props.setlastMenu(() => hideCtxMenu)
+            props.ctxMenu.setlastMenu(() => hideCtxMenu)
         }
 
         setisShown(false);
@@ -39,7 +40,6 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             x: event.pageX,
             y: event.pageY,
         }
-        //console.log(newPosition);
         setposition(newPosition);
         setisShown(true);
     }
@@ -47,39 +47,75 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     function hideCtxMenu(){
         setisShown(false)
     }
-
-    function action(){
-        console.log('Click works!')
+    
+    function deleteCurrentFile(){
+        console.log("=====================")
+        console.log(`object: `);
+        console.log(props.currentItem);
+        console.log(`step 1 compare ${props.currentItem.systemUnitType}`);
+        if (props.currentItem.systemUnitType == 'file'){deleteFile(props.currentItem.uniqueId, props.fileSys.fs)};
+        if (props.currentItem.systemUnitType == 'folder'){deleteFolder(props.currentItem.uniqueId, props.fileSys.fs)};
     }
 
-    let contextMenu = undefined;
+    function deleteFile(id: string, folder: IFolder){
+        folder.files = folder.files?.filter( file => file.uniqueId !== id);
+        folder.folders?.map(item => deleteFile(id, item))
+    }
 
-    
+    function deleteFolder(id: string, folder: IFolder){
+        folder.folders = folder.folders?.filter(item => item.uniqueId != id)
+        folder.folders?.map(item => deleteFolder(id, folder))
+    }
+
+    useEffect(() =>{
+        console.log("UPDATE TIME")
+    })
+
+    function searchFolder(root: IFolder, id: string) : [IFolder[] | undefined, number]{
+        root.folders?.map((folder, index) => {
+            if (folder.uniqueId === id){
+                console.log(`step3 finiched with index: ${index}`);
+                console.log(root.folders)
+                setfolder(root.folders);
+                setfolderIndex(index);
+            }else{
+                searchFolder(folder, id);
+            }
+            
+        })
+        return [folder,folderIndex]
+    }
+
+    function test(){
+        console.log(props.fileSys.fs)
+    }
 
     return ( 
-        <div className={`file-line ${props.active}`} 
+        <div className={`file-line ${props.active}`}
+        //padding +20px by one nesting lvl
         style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 20}px`}} 
         onClick={(e) => {
+            // use file on ckick function (open file)
             if(props.onClick !== undefined){
                 props.onClick(e);
             }
-            
-            props.lastMenu()
+            props.ctxMenu.lastMenu()
         }}
         onContextMenu= {(e) => {showCtxMenu(e)}}
         >
             <img src={ICONS[props.datatype || 0]} height={'20px'} width={'20px'}></img>
             <div>
-                {props.children}    
+                {props.children}
             </div>
             
             {
                 isShown && 
                 <div className='ctx-menu-container'
                 style={{top: position.y, left: position.x}}>
-                    <div className='ctx-menu-element'><div><span>Создать файл</span></div></div>
-                    <div className='ctx-menu-element'><div><span>Создать папку</span></div></div>
-                    <div className='ctx-menu-element'><div><span>Удалить файл</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {test()}}><div><span>Создать файл</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {console.log(props.fileSys.fs)}}><div><span>Создать папку</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {console.log(props.currentItem)}}><div><span>Свойства</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {deleteCurrentFile()}}><div><span>Удалить файл</span></div></div>
                 </div>
             }
             

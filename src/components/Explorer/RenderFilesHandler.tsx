@@ -15,9 +15,13 @@ const RenderFilesHandler: React.FunctionComponent<RenderFilesHandlerProps> = (pr
         <div>
             {
                 props.root.files?.map((item) => {
-                    return <File lastMenu={props.lastMenu} setlastMenu={props.setlastMenu}
-                    nestLvl={props.nestLvl} datatype={DataType.File} 
-                    active={item==props.currentFile} onClick={() => {
+                    return <File ctxMenu={props.ctxMenu} 
+                    fileSys={props.fileSys}
+                    currentItem={item}
+                    nestLvl={props.nestLvl} 
+                    datatype={DataType.File} 
+                    active={item==props.currentFile}
+                    onClick={() => {
                         props.openFile(item)
                     }}>
                         {item.name}</File>})
