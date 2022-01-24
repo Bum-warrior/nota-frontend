@@ -23,7 +23,6 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
                     nestLvl={props.nestLvl}
                     datatype={DataType.Folder} 
                     active={false} 
-                    openFile={props.openFile} 
                     currentFile={props.currentFile}
                     root={item}
                     // onClick={() => {

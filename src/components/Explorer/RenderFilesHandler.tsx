@@ -20,10 +20,8 @@ const RenderFilesHandler: React.FunctionComponent<RenderFilesHandlerProps> = (pr
                     currentItem={item}
                     nestLvl={props.nestLvl} 
                     datatype={DataType.File} 
-                    active={item==props.currentFile}
-                    onClick={() => {
-                        props.openFile(item)
-                    }}>
+                    active={item==props.currentFile.currentFile}
+                    currentFile={props.currentFile}>
                         {item.name}</File>})
             }
             

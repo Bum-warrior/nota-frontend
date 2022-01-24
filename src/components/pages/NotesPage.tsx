@@ -363,7 +363,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     return ( 
     <div className='notes-page'>
         {/* pass user`s files to explorer on left side and hook to change displayable file*/}
-            <Explorer openFile={updateCurrentFile} currentFile={currentFile} fileSys={{fs: fileSystem, changeFS: setfileSystem}}   />
+            <Explorer currentFile={{currentFile : currentFile, openFile : setcurrentFile}} fileSys={{fs: fileSystem, changeFS: setfileSystem}}   />
             <TextEditor file={currentFile}/>
     </div> );
 }

@@ -4,11 +4,12 @@ import { System } from 'typescript';
 import IFile from '../TextEditor/interfaces/IFile';
 import IFileSystemObject from '../TextEditor/interfaces/IFileSystemObject';
 import IFolder from '../TextEditor/interfaces/IFolder';
+import { ExplorerProps } from './Explorer';
 import { DataType, ICONS } from './IconsProvider';
 import IRenderProps from './IRenderProps';
 
 
-export interface FileProps extends Omit<IRenderProps, 'root'>{
+export interface FileProps extends Omit<IRenderProps, 'root'>, Pick<ExplorerProps, 'currentFile'>{
     active: boolean;
     nestLvl: number;
     currentItem: IFile | IFolder;
@@ -21,8 +22,6 @@ export interface FileProps extends Omit<IRenderProps, 'root'>{
 const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     const [isShown, setisShown] = useState(false);
     const [position, setposition] = useState({x: 0, y: 0});
-    const [folderIndex, setfolderIndex] = useState(0);
-    const [folder, setfolder] = useState<IFolder[]>();
     
     function showCtxMenu(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault();
@@ -46,6 +45,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
 
     function hideCtxMenu(){
         setisShown(false)
+        props.ctxMenu.setlastMenu(undefined)
     }
     
     function deleteCurrentFile(){
@@ -57,12 +57,15 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         if (props.currentItem.systemUnitType == 'folder'){deleteFolder(props.currentItem.uniqueId, props.fileSys.fs)};
     }
 
+    // TODO: Dont stop if already delete
     function deleteFile(id: string, folder: IFolder){
+        hideCtxMenu()
         folder.files = folder.files?.filter( file => file.uniqueId !== id);
         folder.folders?.map(item => deleteFile(id, item))
     }
 
     function deleteFolder(id: string, folder: IFolder){
+        hideCtxMenu()
         folder.folders = folder.folders?.filter(item => item.uniqueId != id)
         folder.folders?.map(item => deleteFolder(id, folder))
     }
@@ -70,21 +73,6 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     useEffect(() =>{
         console.log("UPDATE TIME")
     })
-
-    function searchFolder(root: IFolder, id: string) : [IFolder[] | undefined, number]{
-        root.folders?.map((folder, index) => {
-            if (folder.uniqueId === id){
-                console.log(`step3 finiched with index: ${index}`);
-                console.log(root.folders)
-                setfolder(root.folders);
-                setfolderIndex(index);
-            }else{
-                searchFolder(folder, id);
-            }
-            
-        })
-        return [folder,folderIndex]
-    }
 
     function test(){
         console.log(props.fileSys.fs)
@@ -98,6 +86,9 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             // use file on ckick function (open file)
             if(props.onClick !== undefined){
                 props.onClick(e);
+            }
+            if (props.currentItem.systemUnitType !== 'folder'){
+                props.currentFile.openFile(props.currentItem)
             }
             props.ctxMenu.lastMenu()
         }}

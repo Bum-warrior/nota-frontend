@@ -5,8 +5,10 @@ import RenderFilesHandler from './RenderFilesHandler';
 import IRenderProps from './IRenderProps';
 
 export interface ExplorerProps extends Pick<IRenderProps, 'fileSys'>{
-    openFile: Function;
-    currentFile: IFile | undefined;
+    currentFile: {
+        currentFile: IFile | undefined;
+        openFile: Function;
+    }
 }
 
 
@@ -20,14 +22,13 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
             root={props.fileSys.fs}
             currentItem={props.fileSys.fs}
             currentFile={props.currentFile} 
-            openFile={props.openFile} 
             fileSys={props.fileSys}/>
             <RenderFilesHandler ctxMenu={{lastMenu, setlastMenu}}
             nestLvl={0} 
             root={props.fileSys.fs} 
             fileSys={props.fileSys}
             currentFile={props.currentFile} 
-            openFile={props.openFile}></RenderFilesHandler>
+            ></RenderFilesHandler>
         </div>
     );
 }
