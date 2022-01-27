@@ -7,7 +7,7 @@
     border-radius: 6px;
     //border: 1px solid rgba(226, 226, 226, 0.753);
     min-width: 150px;
-    min-height: 132px;
+    
     display: flex;
     justify-content: space-evenly;
     
@@ -46,4 +46,10 @@
     .ctx-menu-element:hover{
         background-color: var(--ctx-menu-hover);
     }
+}
+
+.container-test{
+    background-color: rgb(36, 33, 33);
+    width: 100%;
+    min-height: 700px;
 }

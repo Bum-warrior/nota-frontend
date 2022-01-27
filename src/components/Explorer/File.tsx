@@ -39,6 +39,10 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             x: event.pageX,
             y: event.pageY,
         }
+        if((window.innerHeight-newPosition.y)<100){
+            newPosition.y = (window.innerHeight-100)
+        }
+        
         setposition(newPosition);
         setisShown(true);
     }
@@ -81,8 +85,8 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     return ( 
         <div className={`file-line ${props.active}`}
         //padding +20px by one nesting lvl
-        style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 20}px`}} 
-        onClick={(e) => {
+            style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 20}px`}} 
+            onClick={(e) => {
             // use file on ckick function (open file)
             if(props.onClick !== undefined){
                 props.onClick(e);
@@ -91,9 +95,9 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
                 props.currentFile.openFile(props.currentItem)
             }
             props.ctxMenu.lastMenu()
-        }}
-        onContextMenu= {(e) => {showCtxMenu(e)}}
-        >
+            }}
+            onContextMenu= {(e) => {showCtxMenu(e)}}
+            >
             <img src={ICONS[props.datatype || 0]} height={'20px'} width={'20px'}></img>
             <div>
                 {props.children}
@@ -105,8 +109,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
                 style={{top: position.y, left: position.x}}>
                     <div className='ctx-menu-element' onClick={() => {test()}}><div><span>Создать файл</span></div></div>
                     <div className='ctx-menu-element' onClick={() => {console.log(props.fileSys.fs)}}><div><span>Создать папку</span></div></div>
-                    <div className='ctx-menu-element' onClick={() => {console.log(props.currentItem)}}><div><span>Свойства</span></div></div>
-                    <div className='ctx-menu-element' onClick={() => {deleteCurrentFile()}}><div><span>Удалить файл</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {deleteCurrentFile()}}><div><span>Удалить</span></div></div>
                 </div>
             }
             
