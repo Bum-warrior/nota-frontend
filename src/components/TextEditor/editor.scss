@@ -5,11 +5,11 @@
     bottom: 0;
     left:300px;
     right:0;
+    height: calc(100% - 45px);
     overflow-y:scroll;
 }
 
 .editor{
-    background-color: #FFFFFF;
     line-height: 1.5;
     text-align: justify;
     outline: none;

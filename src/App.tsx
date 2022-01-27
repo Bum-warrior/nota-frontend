@@ -11,7 +11,7 @@ import TestPage from './components/pages/TestPage';
 function App() {
   return (
     <BrowserRouter>
-      <div data-theme='dark'>
+      <div data-theme='dark' className='main-container'>
         <div className='Navgation-bar'>
           <div className='nav-btn'>
             <NavLink to="/timer">Таймер</NavLink>
