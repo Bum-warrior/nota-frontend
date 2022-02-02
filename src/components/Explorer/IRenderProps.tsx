@@ -8,7 +8,7 @@ export default interface IRenderProps{
         lastMenu: Function;
         setlastMenu: Function;
     };
-    fileSys : {
+    fileSystem : {
         fs : IFolder;
         changeFS: React.Dispatch<React.SetStateAction<IFolder>>;
     };

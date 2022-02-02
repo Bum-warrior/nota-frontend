@@ -8,7 +8,7 @@ import IRenderProps from './IRenderProps';
 import IFileSystemObject from '../TextEditor/interfaces/IFileSystemObject';
 
 export interface RenderFoldersHandlerProps extends Omit<ExplorerProps, 'fileSystem'>, IRenderProps, Pick<FolderProps, 'currentItem'>{
-    
+
 }
  
 const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> = (props : RenderFoldersHandlerProps) => {
@@ -19,7 +19,7 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
                     return <Folder 
                     currentItem={item} 
                     ctxMenu={props.ctxMenu}
-                    fileSys={props.fileSys}
+                    fileSystem={props.fileSystem}
                     nestLvl={props.nestLvl}
                     datatype={DataType.Folder} 
                     active={false} 

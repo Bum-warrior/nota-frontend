@@ -22,6 +22,8 @@ export interface FileProps extends Omit<IRenderProps, 'root'>, Pick<ExplorerProp
 const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     const [isShown, setisShown] = useState(false);
     const [position, setposition] = useState({x: 0, y: 0});
+
+    const [isEditable, setisEditable] = useState(false);
     
     function showCtxMenu(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault();
@@ -57,8 +59,8 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         console.log(`object: `);
         console.log(props.currentItem);
         console.log(`step 1 compare ${props.currentItem.systemUnitType}`);
-        if (props.currentItem.systemUnitType == 'file'){deleteFile(props.currentItem.uniqueId, props.fileSys.fs)};
-        if (props.currentItem.systemUnitType == 'folder'){deleteFolder(props.currentItem.uniqueId, props.fileSys.fs)};
+        if (props.currentItem.systemUnitType == 'file'){deleteFile(props.currentItem.uniqueId, props.fileSystem.fs)};
+        if (props.currentItem.systemUnitType == 'folder'){deleteFolder(props.currentItem.uniqueId, props.fileSystem.fs)};
     }
 
     // TODO: Dont stop if already delete
@@ -75,17 +77,20 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     }
 
     useEffect(() =>{
-        console.log("UPDATE TIME")
+        if(!props.active){
+            setisEditable(false)
+        }
     })
 
     function test(){
-        console.log(props.fileSys.fs)
+        console.log(props.fileSystem.fs)
     }
 
     return ( 
         <div className={`file-line ${props.active}`}
         //padding +20px by one nesting lvl
             style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 20}px`}} 
+            
             onClick={(e) => {
             // use file on ckick function (open file)
             if(props.onClick !== undefined){
@@ -96,19 +101,32 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             }
             props.ctxMenu.lastMenu()
             }}
+
             onContextMenu= {(e) => {showCtxMenu(e)}}
             >
             <img src={ICONS[props.datatype || 0]} height={'20px'} width={'20px'}></img>
-            <div>
-                {props.children}
-            </div>
+            
+            {
+                !isEditable && 
+                <div className='file-line-name'>
+                    {props.children}
+                </div>
+            }
+            {
+                isEditable && props.active &&
+                <textarea rows={1} className='file-line-editName'>
+
+                </textarea>
+            }
+            
             
             {
                 isShown && 
                 <div className='ctx-menu-container'
                 style={{top: position.y, left: position.x}}>
                     <div className='ctx-menu-element' onClick={() => {test()}}><div><span>Создать файл</span></div></div>
-                    <div className='ctx-menu-element' onClick={() => {console.log(props.fileSys.fs)}}><div><span>Создать папку</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {console.log(props.fileSystem.fs)}}><div><span>Создать папку</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {setisEditable(true)}}><div><span>Переименовать</span></div></div>
                     <div className='ctx-menu-element' onClick={() => {deleteCurrentFile()}}><div><span>Удалить</span></div></div>
                 </div>
             }

@@ -6,7 +6,7 @@ import {DataType} from './IconsProvider'
 import IRenderProps from './IRenderProps';
 
 export interface RenderFilesHandlerProps extends Omit<ExplorerProps, 'fileSystem'>, IRenderProps{
-    
+
 }
  
 const RenderFilesHandler: React.FunctionComponent<RenderFilesHandlerProps> = (props: RenderFilesHandlerProps) => {
@@ -16,7 +16,7 @@ const RenderFilesHandler: React.FunctionComponent<RenderFilesHandlerProps> = (pr
             {
                 props.root.files?.map((item) => {
                     return <File ctxMenu={props.ctxMenu} 
-                    fileSys={props.fileSys}
+                    fileSystem={props.fileSystem}
                     currentItem={item}
                     nestLvl={props.nestLvl} 
                     datatype={DataType.File} 

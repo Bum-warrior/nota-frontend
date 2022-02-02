@@ -1,13 +1,14 @@
 :root div[data-theme='dark'] *{
     --navbar-color: #1d1d1d;
     --text-color:#E8B912;
-    --background-file-explorer: #413f3f;
+    --file-explorer-background: #413f3f;
     --scrollbar-thumb: rgb(105, 105, 105);
-    --scrollbar-border: var(--background-file-explorer);
+    --scrollbar-border: var(--file-explorer-background);
     --scrollbar-hover: rgb(90,90,90);
     --scrollbar-active: rgb(35, 35, 35);
-    --active-file-bg: rgb(196, 151, 28);
+    --active-file-bg: rgb(196, 151, 28) ;
     --active-file-text:var(#1d1d1d);
+    --file-line-hover: #61615f ;
     --ctx-menu-hover: rgb(194, 194, 194);
     --editor-container: rgb(207, 207, 207);
 }

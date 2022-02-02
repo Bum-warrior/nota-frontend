@@ -170,8 +170,8 @@ let testFileSystem : IFileSystem = {
                 systemUnitType: 'file',
                 uniqueId: Math.random().toString(16).slice(2),
             },{
-                name: 'Я Обычный файлик',
-                text: 'Привет я Олег',
+                name: 'Я Обычный файлик, НО С ОЧЕНЬ ДЛИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИННЫМ НАЗВАНИЕМ',
+                text: 'Привет я Олег            ',
                 systemUnitType: 'file',
                 uniqueId: Math.random().toString(16).slice(2),
             },
@@ -356,14 +356,10 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     const [currentFile, setcurrentFile] = useState<IFile>();
     const [fileSystem, setfileSystem] = useState(testFileSystem.root);
 
-    function updateCurrentFile(file: IFile){
-        setcurrentFile(file)
-    }
-
     return ( 
     <div className='notes-page'>
         {/* pass user`s files to explorer on left side and hook to change displayable file*/}
-            <Explorer currentFile={{currentFile : currentFile, openFile : setcurrentFile}} fileSys={{fs: fileSystem, changeFS: setfileSystem}}   />
+            <Explorer currentFile={{currentFile : currentFile, openFile : setcurrentFile}} fileSystem={{fs: fileSystem, changeFS: setfileSystem}}   />
             <TextEditor file={currentFile}/>
     </div> );
 }

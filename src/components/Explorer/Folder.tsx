@@ -17,7 +17,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
     
     return (
         <div>
-            <File fileSys={props.fileSys}
+            <File fileSystem={props.fileSystem}
             ctxMenu={props.ctxMenu}
             nestLvl={props.nestLvl}
             currentItem={props.currentItem}
@@ -33,14 +33,14 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
                 subMenuVisibleState ? 
                 <div className='folder-submenu'>
                 <RenderFoldersHandler 
-                fileSys={props.fileSys} 
+                fileSystem={props.fileSystem} 
                 currentItem={props.currentItem} 
                 ctxMenu={props.ctxMenu} 
                 nestLvl={props.nestLvl+1} 
                 root={props.root} 
                 currentFile={props.currentFile}/>
                 <RenderFilesHandler 
-                fileSys={props.fileSys} 
+                fileSystem={props.fileSystem} 
                 ctxMenu={props.ctxMenu}
                 nestLvl={props.nestLvl+1} 
                 root={props.root} 

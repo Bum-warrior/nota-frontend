@@ -16,8 +16,8 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorP
             <ContentEditable
                 className='editor'
                 html={props.file? props.file.text : ''} // innerHTML of the editable div
-                disabled={props.file? false : true}       // use true to disable editing
-                onChange={(e) => {onMyChange(e, props)}} // handle innerHTML change
+                disabled={props.file? false : true}       // use true to disable editing  /  if file exist disable == false
+                onChange={(e) => {saveChange(e, props)}} // handle innerHTML change
                 tagName='article' // Use a custom HTML tag (uses a div by default)
             >
             </ContentEditable>
@@ -25,7 +25,7 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorP
     );
 }
 
-function onMyChange(e: ContentEditableEvent, props: TextEditorProps){
+function saveChange(e: ContentEditableEvent, props: TextEditorProps){
     const newValue = e.currentTarget.innerHTML;
     if(props!=undefined && props.file!=undefined){
         props.file.text=newValue;

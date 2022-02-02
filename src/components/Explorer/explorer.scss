@@ -6,17 +6,23 @@
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: 2em;
-    background-color: var(--background-file-explorer);
+    background-color: var(--file-explorer-background);
 }
 
 .file-line{
-    border: 4px solid var(--file-color);
+    max-width: 300px;
     min-height: 26px;
     border: 0px;
     display: flex;
     color: var(--text-color);
+    .file-line-name{
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     &:hover{
         cursor: pointer;
+        background-color: var(--file-line-hover);
     }
     img{
         margin-top: auto;
@@ -30,8 +36,21 @@
     }
 }
 
+.file-line-editName{
+    max-height: 24px;
+    width: 100%;
+    resize: none;
+    white-space: nowrap;
+    overflow-x: hidden;
+    background-color: rgba(255, 255, 255, 0);
+    &:focus{
+        outline: none;
+    }
+}
+
 .true{
-    background-color: var(--active-file-bg);
+    // if file hover still active color
+    background-color: var(--active-file-bg) !important;
     color: var(--active-file-text);
 }
 
