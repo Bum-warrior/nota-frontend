@@ -17,7 +17,8 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
             {
                 props.root.folders?.map((item) => {
                     return <Folder 
-                    currentItem={item} 
+                    currentItem={item}
+                    key={item.uniqueId}
                     ctxMenu={props.ctxMenu}
                     fileSystem={props.fileSystem}
                     nestLvl={props.nestLvl}

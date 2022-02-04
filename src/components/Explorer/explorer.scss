@@ -6,16 +6,19 @@
     overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: 2em;
-    background-color: var(--file-explorer-background);
+    background-color: var(--background-second);
 }
 
 .file-line{
+    padding: 3px 0;
     max-width: 300px;
     min-height: 26px;
     border: 0px;
     display: flex;
-    color: var(--text-color);
+    color: var(--text-second);
     .file-line-name{
+        font-size: 14px;
+        font-weight: 700;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -27,6 +30,7 @@
     img{
         margin-top: auto;
         margin-bottom: auto;
+        filter: invert(98%) sepia(1%) saturate(4584%) hue-rotate(48deg) brightness(125%) contrast(60%)
     }
     div{
         margin-left: 5px;
@@ -51,7 +55,6 @@
 .true{
     // if file hover still active color
     background-color: var(--active-file-bg) !important;
-    color: var(--active-file-text);
 }
 
 .folder-submenu{

@@ -16,7 +16,13 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
     const [lastMenu, setlastMenu] = useState(() => Function);
 
     return ( 
-        <div className='explorer-container'>
+        <div className='explorer-container'
+        onClick={(event : React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            if(lastMenu !== undefined){
+                lastMenu();
+            }
+        }}
+        >
             <RenderFoldersHandler 
             ctxMenu={{lastMenu, setlastMenu}}
             nestLvl={0} 

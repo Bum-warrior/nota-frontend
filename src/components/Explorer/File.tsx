@@ -42,7 +42,8 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             y: event.pageY,
         }
         if((window.innerHeight-newPosition.y)<100){
-            newPosition.y = (window.innerHeight-100)
+            //(heightOfWindows - (heightOfOneLine multyply by they number))
+            newPosition.y = (window.innerHeight-(33*4))
         }
         
         setposition(newPosition);
@@ -94,19 +95,19 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 20}px`}} 
             
             onClick={(e) => {
-            // use file on ckick function (open file)
-            if(props.onClick !== undefined){
-                props.onClick(e);
-            }
-            if (props.currentItem.systemUnitType !== 'folder'){
-                props.currentFile.openFile(props.currentItem)
-            }
-            props.ctxMenu.lastMenu()
+                //open file if not a folder
+                if (props.currentItem.systemUnitType !== 'folder'){
+                    props.currentFile.openFile(props.currentItem)
+                }
+                // if ctx menu exist then close it
+                if(props.onClick !== undefined){
+                    props.onClick(e)
+                }
             }}
 
             onContextMenu= {(e) => {showCtxMenu(e)}}
             >
-            <img src={ICONS[props.datatype || 0]} height={'20px'} width={'20px'}></img>
+            <img src={ICONS[props.datatype || 0]} height={'26px'} width={'26px'}></img>
             
             {
                 !isEditable && 

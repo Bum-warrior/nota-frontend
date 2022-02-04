@@ -346,11 +346,6 @@ let testFileSystem : IFileSystem = {
     }
 }
 
-interface ITextProvider{
-    text: string,
-}
-
-
 const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProps) => {
     
     const [currentFile, setcurrentFile] = useState<IFile>();

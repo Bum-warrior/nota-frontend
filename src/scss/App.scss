@@ -31,7 +31,7 @@ html {
   display: flex;
   justify-content: space-evenly;
   height: 45px;
-  background-color: var(--navbar-color);
+  background-color: var(--background-main);
   text-align: center;
 }
 
@@ -50,7 +50,7 @@ here is profile
   a{
     font-size: 100%;
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text-main);
   }
 }
 
