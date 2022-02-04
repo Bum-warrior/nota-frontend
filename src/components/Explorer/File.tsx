@@ -65,15 +65,17 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
 
     // TODO: Dont stop if already delete
     function deleteFile(id: string, folder: IFolder){
-        hideCtxMenu()
+        console.log("DELETE FILE CALLED");
+        hideCtxMenu();
         folder.files = folder.files?.filter( file => file.uniqueId !== id);
         folder.folders?.map(item => deleteFile(id, item))
     }
 
     function deleteFolder(id: string, folder: IFolder){
-        hideCtxMenu()
+        console.log("DELETE FOLDER CALLED");
+        hideCtxMenu();
         folder.folders = folder.folders?.filter(item => item.uniqueId != id)
-        folder.folders?.map(item => deleteFolder(id, folder))
+        folder.folders?.map(item => deleteFolder(id, item))
     }
 
     useEffect(() =>{
