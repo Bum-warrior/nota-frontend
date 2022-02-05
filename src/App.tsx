@@ -9,6 +9,7 @@ import TimerPage from './components/pages/TimerPage';
 import TestPage from './components/pages/TestPage';
 
 function App() {
+  
   return (
     <BrowserRouter>
       <div data-theme='dark' className='main-container'>

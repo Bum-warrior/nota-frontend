@@ -3,6 +3,7 @@ import IFile from '../TextEditor/interfaces/IFile';
 import RenderFoldersHandler from './RenderFoldersHandler';
 import RenderFilesHandler from './RenderFilesHandler';
 import IRenderProps from './IRenderProps';
+import IFolder from '../TextEditor/interfaces/IFolder';
 
 export interface ExplorerProps extends Pick<IRenderProps, 'fileSystem'>{
     currentFile: {
@@ -13,7 +14,10 @@ export interface ExplorerProps extends Pick<IRenderProps, 'fileSystem'>{
 
 
 const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps) => {
-    const [lastMenu, setlastMenu] = useState(() => Function);
+    const [lastMenu, setlastMenu] = useState(Function);
+    const [isCreating, setisCreating] = useState(false);
+    const [name, setname] = useState("");
+    const [creatingType, setcreatingType] = useState("file");
 
     return ( 
         <div className='explorer-container'
@@ -23,6 +27,7 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
             }
         }}
         >
+            <section className='explorer-provider'>
             <RenderFoldersHandler 
             ctxMenu={{lastMenu, setlastMenu}}
             nestLvl={0} 
@@ -37,6 +42,61 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
             fileSystem={props.fileSystem}
             currentFile={props.currentFile} 
             />
+            </section>
+            {
+                !isCreating &&
+                <div className='explorer-footer'>
+                    <div onClick={(e) => {
+                        setisCreating(true);
+                        setcreatingType("file");
+                        console.log(isCreating);
+                    }}>
+                    Создать файл
+                    </div>
+                    <div onClick={(e) => {
+                        setisCreating(true);
+                        setcreatingType("folder");
+                        console.log(isCreating);
+                    }}>
+                    Создать папку
+                    </div>
+                </div>
+            }
+            {
+                isCreating &&
+                <div className='explorer-footer'>
+                    <form onSubmit={(e: React.SyntheticEvent) => {
+                            e.preventDefault();
+                            setisCreating(false);
+                            switch (creatingType) {
+                                case "file":
+                                    let newFile : IFile = {
+                                        name: name,
+                                        text: '',
+                                        systemUnitType: 'file',
+                                        uniqueId: Math.random().toString(16).slice(2),
+                                    }
+                                    props.fileSystem.fs.files?.push(newFile);
+                                    break;
+                                case "folder":
+                                    let newFolder : IFolder = {
+                                        name: name,
+                                        files: [],
+                                        systemUnitType: 'folder',
+                                        uniqueId: Math.random().toString(16).slice(2),
+                                    }
+                                    props.fileSystem.fs.folders?.push(newFolder);
+                                break
+                                default:
+                                    break;
+                            }
+                        }}>
+                        <label htmlFor='name'>Название:</label>
+                        <input type="text" id='name' value={name} onChange={(e) => setname(e.target.value)}/>
+                    </form>
+                </div>
+            }
+            
         </div>
     );
 }

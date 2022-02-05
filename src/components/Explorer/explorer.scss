@@ -5,9 +5,26 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: 2em;
+    overflow-y: hidden;
+    
     background-color: var(--background-second);
+    .explorer-provider{
+        height: calc(100% - 30px);
+        scrollbar-width: 2em;
+        overflow-y: scroll;
+    }
+    .explorer-footer{
+        height: 30px;
+        color:var(--text-main);
+        background-color: var(--background-main);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        cursor: pointer;
+    }
+    .explorer-rename-input{
+        width: 240px;
+    }
 }
 
 .file-line{
@@ -60,6 +77,5 @@
 }
 
 .folder-submenu{
-    min-height: 26px;
     min-width: 100%;
 }

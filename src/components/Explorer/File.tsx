@@ -24,6 +24,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     const [position, setposition] = useState({x: 0, y: 0});
 
     const [isEditable, setisEditable] = useState(false);
+    const [name, setname] = useState(props.children?.toString());
     
     function showCtxMenu(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault();
@@ -31,6 +32,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         //check if another ctxmenu exist and close it by hook
         if (props.ctxMenu.lastMenu !== undefined){
             props.ctxMenu.lastMenu()
+            //passes a function that internally calls the function to remove the last menu
             props.ctxMenu.setlastMenu(() => hideCtxMenu)
         } else {
             props.ctxMenu.setlastMenu(() => hideCtxMenu)
@@ -48,11 +50,13 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         
         setposition(newPosition);
         setisShown(true);
+        document.addEventListener("click", hideCtxMenu);
     }
 
     function hideCtxMenu(){
         setisShown(false)
         props.ctxMenu.setlastMenu(undefined)
+        document.removeEventListener("click", hideCtxMenu)
     }
     
     function deleteCurrentItem(){
@@ -64,7 +68,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         if (props.currentItem.systemUnitType == 'folder'){deleteFolder(props.currentItem.uniqueId, props.fileSystem.fs)};
     }
 
-    // TODO: Dont stop if already delete
+    // TODO: Dont stop if already delete. findElementById good examle how to do recursive function
     function deleteFile(id: string, folder: IFolder){
         console.log("DELETE FILE CALLED");
         hideCtxMenu();
@@ -79,10 +83,31 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         folder.folders?.map(item => deleteFolder(id, item))
     }
 
+    function findElementById(id: string, searchedFodler: IFolder) : IFile | IFolder | undefined{
+        console.log('called find function')
+        if (searchedFodler.files !== undefined){
+            for (let i = 0; i < searchedFodler.files.length; i++){
+                if (id === searchedFodler.files[i].uniqueId){
+                    return searchedFodler.files[i]
+                }
+            }
+        }
+        if (searchedFodler.folders !== undefined){
+            for (let i = 0; i < searchedFodler.folders.length; i++){
+                if (id === searchedFodler.folders[i].uniqueId){
+                    return searchedFodler.folders[i]
+                } else {
+                    return findElementById(id, searchedFodler.folders[i])
+                }
+            }
+        }
+    }
+
     useEffect(() =>{
         if(!props.active){
             setisEditable(false)
         }
+        console.log('Updated File')
     })
 
     function test(){
@@ -112,28 +137,51 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             {
                 !isEditable && 
                 <div className='file-line-name'>
-                    {props.children}
+                    {name}
                 </div>
             }
             {
-                isEditable && props.active &&
-                <input type={'text'} className='file-line-editName'>
-
-                </input>
+                isEditable &&
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    setisEditable(false)
+                    let currentElement = findElementById(props.currentItem.uniqueId, props.fileSystem.fs);
+                    if (currentElement !== undefined){
+                        currentElement.name = name;
+                    }
+                    }}>
+                    <input className='explorer-rename-input' type={'text'} value={name} onChange={(e) =>setname(e.target.value)}></input>
+                </form>
             }
             
             
             {
-                isShown && 
+                isShown && props.currentItem.systemUnitType === 'folder' &&
                 <div className='ctx-menu-container'
-                style={{top: position.y, left: position.x}}>
+                    style={{top: position.y, left: position.x}}>
                     <div className='ctx-menu-element' onClick={() => {test()}}><div><span>Создать файл</span></div></div>
+                    
                     <div className='ctx-menu-element' onClick={() => {console.log(props.fileSystem.fs)}}><div><span>Создать папку</span></div></div>
+
+
+                    <div className='ctx-menu-element' onClick={(e) => {
+                        setisEditable(true);
+                        e.stopPropagation();
+                        }}>
+                    <div><span>Переименовать</span></div></div>
+                    
+
+                    <div className='ctx-menu-element' onClick={() => {deleteCurrentItem()}}><div><span>Удалить</span></div></div>
+                </div>
+            }
+            {
+                isShown && props.currentItem.systemUnitType === 'file' &&
+                <div className='ctx-menu-container'
+                    style={{top: position.y, left: position.x}}>
                     <div className='ctx-menu-element' onClick={() => {setisEditable(true)}}><div><span>Переименовать</span></div></div>
                     <div className='ctx-menu-element' onClick={() => {deleteCurrentItem()}}><div><span>Удалить</span></div></div>
                 </div>
             }
-            
         </div>
     );
 }

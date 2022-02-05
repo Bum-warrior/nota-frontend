@@ -27,8 +27,6 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
             onClick={() => {
                 setsubMenuVisibleState(subMenuVisibleState ? false : true);
             }}>{props.root.name}</File>
-            {/* root={props.root} openFile={props.openFile} currentFile={props.currentFile} active={subMenuVisibleState} */}
-            {/* {subMenu} */}
             {
                 subMenuVisibleState ? 
                 <div className='folder-submenu'>
@@ -45,7 +43,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
                 nestLvl={props.nestLvl+1} 
                 root={props.root} 
                 currentFile={props.currentFile}/>
-            </div> : null
+                </div> : null
             }
         </div>      
     );
