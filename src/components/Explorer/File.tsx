@@ -55,7 +55,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         props.ctxMenu.setlastMenu(undefined)
     }
     
-    function deleteCurrentFile(){
+    function deleteCurrentItem(){
         console.log("=====================")
         console.log(`object: `);
         console.log(props.currentItem);
@@ -117,9 +117,9 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             }
             {
                 isEditable && props.active &&
-                <textarea rows={1} className='file-line-editName'>
+                <input type={'text'} className='file-line-editName'>
 
-                </textarea>
+                </input>
             }
             
             
@@ -130,7 +130,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
                     <div className='ctx-menu-element' onClick={() => {test()}}><div><span>Создать файл</span></div></div>
                     <div className='ctx-menu-element' onClick={() => {console.log(props.fileSystem.fs)}}><div><span>Создать папку</span></div></div>
                     <div className='ctx-menu-element' onClick={() => {setisEditable(true)}}><div><span>Переименовать</span></div></div>
-                    <div className='ctx-menu-element' onClick={() => {deleteCurrentFile()}}><div><span>Удалить</span></div></div>
+                    <div className='ctx-menu-element' onClick={() => {deleteCurrentItem()}}><div><span>Удалить</span></div></div>
                 </div>
             }
             

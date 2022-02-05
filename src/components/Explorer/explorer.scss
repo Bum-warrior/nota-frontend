@@ -1,5 +1,6 @@
 .explorer-container{
     width: 300px;
+    height: 100%;
     max-height: calc(100% - 45px);
     display: flex;
     flex-direction: column;
@@ -28,6 +29,7 @@
         background-color: var(--file-line-hover);
     }
     img{
+        margin-left: 3px;
         margin-top: auto;
         margin-bottom: auto;
         filter: invert(98%) sepia(1%) saturate(4584%) hue-rotate(48deg) brightness(125%) contrast(60%)
