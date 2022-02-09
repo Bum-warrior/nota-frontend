@@ -21,6 +21,10 @@
         flex-direction: row;
         justify-content: space-evenly;
         cursor: pointer;
+        div{
+            display: flex;
+            align-items: center;
+        }
     }
     .explorer-rename-input{
         width: 240px;
@@ -35,8 +39,6 @@
     display: flex;
     color: var(--text-second);
     .file-line-name{
-        font-size: 14px;
-        font-weight: 700;
         overflow: hidden;
         text-overflow: ellipsis;
     }

@@ -4,6 +4,11 @@
 @import '../components/pages/pages.scss';
 @import './CtxMenuStyle.scss';
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&family=Vast+Shadow&display=swap');
+
+
+
 *{
   margin: 0;
   padding: 0;
@@ -21,38 +26,58 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .main-container{
   height: 100%;
 }
 
-.Navgation-bar{
-  display: flex;
-  justify-content: space-evenly;
-  height: 45px;
+.navgation-bar-wrapper{
+  width: 100%;
   background-color: var(--background-main);
-  text-align: center;
-}
-
-/*
-last element in flex
-here is profile
-*/
-.Navgation-bar>div{
-  margin-left: auto;
-  margin-right: 50px;
-}
-
-.nav-btn{
   display: flex;
-  align-items: center;
-  a{
-    font-size: 100%;
-    text-decoration: none;
-    color: var(--text-main);
+  justify-content: center;
+  .navgation-bar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 45px;
+    text-align: center;
+    .nav-title, .nav-profile{
+      width: 300px;
+    }
+    .nav-btn-list{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+    .nav-btn{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      
+      a{
+        font-size: 100%;
+        text-decoration: none;
+        color: var(--text-main);
+      }
+      .nav-title{
+        color: var(--text-main);
+        font-size: 28px;
+        font-family: 'Roboto', sans-serif;
+        font-family: 'Vast Shadow', cursive;
+      }
+    }
+    
   }
 }
+
+
+
+
 
 ::-webkit-scrollbar {
   width: 14px;
