@@ -6,7 +6,7 @@ $explorer-footer-height: 40px;
     }
     width: 300px;
     height: 100%;
-    max-height: calc(100% - 45px);
+    max-height: calc(100% - $explorer-footer-height);
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
@@ -37,7 +37,7 @@ $explorer-footer-height: 40px;
     .explorer-rename-input{
         height: 100%;
         margin-left: 5px;
-        width: 240px;
+        width: 100%;
         white-space: nowrap;
         overflow-x: hidden;
         background-color: rgba(0, 0, 0, 0);
@@ -50,11 +50,12 @@ $explorer-footer-height: 40px;
 
 .file-line{
     padding: 3px 0;
-    width: 100%;
+    max-width: 286px;
     min-height: 26px;
     border: 0px;
     display: flex;
     color: var(--text-second);
+    user-select: none;
     .file-line-name{
         overflow: hidden;
         text-overflow: ellipsis;
@@ -80,6 +81,9 @@ $explorer-footer-height: 40px;
 
 .explorer-editable-file{
     background-color: var(--file-editable-bg) !important;
+    img{
+        filter: invert(0%) sepia(0%) saturate(49%) hue-rotate(151deg) brightness(98%) contrast(100%);
+    }
 }
 
 .explorer-active-file{

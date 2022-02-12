@@ -20,7 +20,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
             <File 
             active={props.active}
             ctxMenu={props.ctxMenu}
-            currentFile={props.currentFile}
+            currentDisplayableFile={props.currentDisplayableFile}
             currentItem={props.currentItem}
             datatype={props.datatype}
             fileSystem={props.fileSystem}
@@ -39,13 +39,13 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
                 ctxMenu={props.ctxMenu} 
                 nestLvl={props.nestLvl+1} 
                 root={props.root} 
-                currentFile={props.currentFile}/>
+                currentDisplayableFile={props.currentDisplayableFile}/>
                 <RenderFilesHandler 
                 fileSystem={props.fileSystem} 
                 ctxMenu={props.ctxMenu}
                 nestLvl={props.nestLvl+1} 
                 root={props.root} 
-                currentFile={props.currentFile}/>
+                currentDisplayableFile={props.currentDisplayableFile}/>
                 </div> : null
             }
         </div>      

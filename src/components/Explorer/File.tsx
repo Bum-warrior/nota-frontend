@@ -9,7 +9,7 @@ import { DataType, ICONS } from './IconsProvider';
 import IRenderProps from './IRenderProps';
 
 
-export interface FileProps extends Omit<IRenderProps, 'root'>, Pick<ExplorerProps, 'currentFile'>{
+export interface FileProps extends Omit<IRenderProps, 'root'>, Pick<ExplorerProps, 'currentDisplayableFile'>{
     active: boolean;
     nestLvl: number;
     currentItem: IFile | IFolder;
@@ -70,47 +70,21 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     }
 
     function deleteCurrentItem(){
-        console.log("=====================")
-        console.log(`object: `);
-        console.log(props.currentItem);
-        console.log(`step 1 compare ${props.currentItem.systemUnitType}`);
         if (props.currentItem.systemUnitType == 'file'){deleteFile(props.currentItem.uniqueId, props.fileSystem.fs)};
         if (props.currentItem.systemUnitType == 'folder'){deleteFolder(props.currentItem.uniqueId, props.fileSystem.fs)};
     }
 
     // TODO: Dont stop if already delete. findElementById good examle how to do recursive function
     function deleteFile(id: string, folder: IFolder){
-        console.log("DELETE FILE CALLED");
         hideCtxMenu();
         folder.files = folder.files?.filter( file => file.uniqueId !== id);
         folder.folders?.map(item => deleteFile(id, item))
     }
 
     function deleteFolder(id: string, folder: IFolder){
-        console.log("DELETE FOLDER CALLED");
         hideCtxMenu();
         folder.folders = folder.folders?.filter(item => item.uniqueId != id)
-        folder.folders?.map(item => deleteFolder(id, item))
-    }
-
-    function findElementById(id: string, searchedFodler: IFolder) : IFile | IFolder | undefined{
-        console.log('called find function')
-        if (searchedFodler.files !== undefined){
-            for (let i = 0; i < searchedFodler.files.length; i++){
-                if (id === searchedFodler.files[i].uniqueId){
-                    return searchedFodler.files[i];
-                }
-            }
-        }
-        if (searchedFodler.folders !== undefined){
-            for (let i = 0; i < searchedFodler.folders.length; i++){
-                if (id === searchedFodler.folders[i].uniqueId){
-                    return searchedFodler.folders[i];
-                } else {
-                    return findElementById(id, searchedFodler.folders[i]);
-                }
-            }
-        }
+        folder.folders.map(item => deleteFolder(id, item))
     }
 
     useEffect(() =>{
@@ -123,34 +97,30 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         console.log('RERENDER COMPONENT');
     })
 
-    
-    function test(){
-        console.log(props.fileSystem.fs);
-    }
-
+    //change css class depend on file state. This line responsible for background color
     const bgStyle = (isEditable)? `explorer-editable-file` : (props.active)? `explorer-active-file` : ''
 
     return ( 
         <div className={`file-line ${bgStyle}`}
-        //padding +20px by one nesting lvl
-            style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 20}px`}} 
-            
+            //padding +20px by one nesting lvl
+            style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 28}px`}} 
             onClick={(e) => {
                 //open file if not a folder
                 props.ctxMenu.setlastClickedFile(props.currentItem.uniqueId)
                 if (props.currentItem.systemUnitType !== 'folder'){
-                    props.currentFile.openFile(props.currentItem)
+                    props.currentDisplayableFile.openFile(props.currentItem)
                 }
                 // if ctx menu exist then close it
                 if(props.onClick !== undefined){
                     props.onClick(e)
                 }
             }}
+            onContextMenu= {e => showCtxMenu(e)}>
 
-            onContextMenu= {(e) => {showCtxMenu(e)}}
-            >
             <img src={ICONS[props.datatype || 0]} height={'26px'} width={'26px'}></img>
             
+
+            {/* render name or form for editing name */}
             {
                 !isEditable && 
                 <div className='file-line-name'>
@@ -159,43 +129,68 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             }
             {
                 isEditable &&
-                <form onSubmit={(e) => {
+                <form onSubmit={e => {
                     e.preventDefault();
-                    setisEditable(false)
-                    let currentElement = findElementById(props.currentItem.uniqueId, props.fileSystem.fs);
-                    if (currentElement !== undefined){
-                        currentElement.name = name;
-                    }
+                    stopEditing();
                     }}>
-                    <input ref={editNameRef} className='explorer-rename-input' type={'text'} value={name} onChange={(e) =>setname(e.target.value)}></input>
+                    <input ref={editNameRef} className='explorer-rename-input' type={'text'} value={name} onChange={e => {
+                        setname(e.target.value);
+                        if (props.currentItem.name) props.currentItem.name = e.target.value;
+                        }}></input>
                 </form>
             }
             
-            
+
+            {/* ctxMenu for folder */}
             {
                 isShown && props.currentItem.systemUnitType === 'folder' &&
                 <div className='ctx-menu-container'
                     style={{top: position.y, left: position.x}}>
-                    <div className='ctx-menu-element' onClick={() => {test()}}><div><span>Создать файл</span></div></div>
-                    
-                    <div className='ctx-menu-element' onClick={() => {console.log(props.fileSystem.fs)}}><div><span>Создать папку</span></div></div>
-
-
                     <div className='ctx-menu-element' onClick={(e) => {
-                        startEditing()
-                        e.preventDefault()}}>
+                        e.preventDefault()  
+                        //ANY but it can be only folder cause of checking type upper
+                        //i made it cause it can be file or folder, but here only folder and idk how do this in right way
+                        let currentFolder: any = props.currentItem;
+                        let newFile: IFile = {
+                            name: 'НовыйФайл',
+                            text: '',
+                            systemUnitType: 'file',
+                            uniqueId: Math.random().toString(16).slice(2),
+                        }
+                        currentFolder.files.push(newFile);
+                        }}>
+                        <div><span>Создать файл</span></div></div>
+                    <div className='ctx-menu-element' onClick={(e) => {
+                        e.preventDefault();
+                        //ANY but it can be only folder cause of checking type upper
+                        //i made it cause it can be file or folder, but here only folder and idk how do this in right way
+                        let currentFolder: any = props.currentItem;
+                        console.log(currentFolder)
+                        let newFolder: IFolder = {
+                            name: 'Новая папка',
+                            files:[],
+                            folders:[],
+                            systemUnitType: 'folder',
+                            uniqueId: Math.random().toString(16).slice(2),
+                        }
+                        currentFolder.folders.push(newFolder);
+                        }}>
+                        <div><span>Создать папку</span></div></div>
+                    <div className='ctx-menu-element' onClick={(e) => {
+                        e.preventDefault();
+                        startEditing();
+                        }}>
                     <div><span>Переименовать</span></div></div>
-                    
-
-                    <div className='ctx-menu-element' onClick={() => {deleteCurrentItem()}}><div><span>Удалить</span></div></div>
+                    <div className='ctx-menu-element' onClick={e => deleteCurrentItem()}><div><span>Удалить</span></div></div>
                 </div>
             }
+            {/* ctxMenu for file */}
             {
                 isShown && props.currentItem.systemUnitType === 'file' &&
                 <div className='ctx-menu-container'
                     style={{top: position.y, left: position.x}}>
-                    <div className='ctx-menu-element' onClick={(e) => {startEditing()}}><div><span>Переименовать</span></div></div>
-                    <div className='ctx-menu-element' onClick={(e) => {deleteCurrentItem()}}><div><span>Удалить</span></div></div>
+                    <div className='ctx-menu-element' onClick={e => startEditing()}><div><span>Переименовать</span></div></div>
+                    <div className='ctx-menu-element' onClick={e => deleteCurrentItem()}><div><span>Удалить</span></div></div>
                 </div>
             }
         </div>

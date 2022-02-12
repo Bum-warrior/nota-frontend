@@ -6,7 +6,7 @@ import IRenderProps from './IRenderProps';
 import IFolder from '../TextEditor/interfaces/IFolder';
 
 export interface ExplorerProps extends Pick<IRenderProps, 'fileSystem'>{
-    currentFile: {
+    currentDisplayableFile: {
         currentFile: IFile | undefined;
         openFile: Function;
     }
@@ -38,14 +38,14 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
             nestLvl={0} 
             root={props.fileSystem.fs}
             currentItem={props.fileSystem.fs}
-            currentFile={props.currentFile} 
+            currentDisplayableFile={props.currentDisplayableFile} 
             fileSystem={props.fileSystem}/>
             <RenderFilesHandler 
             ctxMenu={{lastMenu, setlastMenu,  lastClickedFile, setlastClickedFile}}
             nestLvl={0} 
             root={props.fileSystem.fs} 
             fileSystem={props.fileSystem}
-            currentFile={props.currentFile} 
+            currentDisplayableFile={props.currentDisplayableFile} 
             />
             </section>
             {
@@ -86,6 +86,7 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
                                 case "folder":
                                     let newFolder : IFolder = {
                                         name: name,
+                                        folders: [],
                                         files: [],
                                         systemUnitType: 'folder',
                                         uniqueId: Math.random().toString(16).slice(2),

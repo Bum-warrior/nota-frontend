@@ -25,7 +25,7 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
                     nestLvl={props.nestLvl}
                     datatype={DataType.Folder} 
                     active={false} 
-                    currentFile={props.currentFile}
+                    currentDisplayableFile={props.currentDisplayableFile}
                     // onClick={() => {
                     // }}
                     >

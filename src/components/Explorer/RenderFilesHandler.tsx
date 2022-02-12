@@ -16,9 +16,9 @@ const RenderFilesHandler: React.FunctionComponent<RenderFilesHandlerProps> = (pr
             {
                 props.root.files?.map((item) => {
                     return <File 
-                    active={item==props.currentFile.currentFile}
+                    active={item==props.currentDisplayableFile.currentFile}
                     ctxMenu={props.ctxMenu}
-                    currentFile={props.currentFile}
+                    currentDisplayableFile={props.currentDisplayableFile}
                     currentItem={item}
                     datatype={DataType.File} 
                     fileSystem={props.fileSystem}

@@ -1,5 +1,5 @@
 
 export default interface IFileSystemObject{
-    systemUnitType?: 'file' | 'folder';
+    systemUnitType: 'file' | 'folder';
     uniqueId: string;
 }

@@ -13,8 +13,9 @@ interface NotesPageProps {
 
 
 let testFileSystem : IFileSystem = {
-    
     root: {
+        name:'',
+        systemUnitType: 'folder',
         uniqueId: Math.random().toString(16).slice(2),
         folders:[
             {
@@ -26,11 +27,13 @@ let testFileSystem : IFileSystem = {
                         name: "Вложенная пустая папка папка",
                         systemUnitType: 'folder',
                         uniqueId: Math.random().toString(16).slice(2),
+                        files: [],
                         folders: [
                             {
                                 name: 'Дважды-вложенная-папка-с-файлом',
                                 systemUnitType: 'folder',
                                 uniqueId: Math.random().toString(16).slice(2),
+                                folders:[],
                                 files: [
                                     {
                                         name: 'Все заебись',
@@ -45,6 +48,7 @@ let testFileSystem : IFileSystem = {
                         name: "Вложенная пустая папка папка 2",
                         systemUnitType: 'folder',
                         uniqueId: Math.random().toString(16).slice(2),
+                        folders:[],
                         files: [
                             {
                                 name: 'Все заебись',
@@ -72,11 +76,13 @@ let testFileSystem : IFileSystem = {
                         name: "Вложенная пустая папка папка",
                         systemUnitType: 'folder',
                         uniqueId: Math.random().toString(16).slice(2),
+                        files: [],
                         folders: [
                             {
                                 name: 'Дважды-вложенная-папка-с-файлом',
                                 systemUnitType: 'folder',
                                 uniqueId: Math.random().toString(16).slice(2),
+                                folders:[],
                                 files: [
                                     {
                                         name: 'Все заебись',
@@ -91,6 +97,7 @@ let testFileSystem : IFileSystem = {
                         name: "Вложенная пустая папка папка 2",
                         systemUnitType: 'folder',
                         uniqueId: Math.random().toString(16).slice(2),
+                        folders:[],
                         files: [
                             {
                                 name: 'Все заебись',
@@ -117,12 +124,14 @@ let testFileSystem : IFileSystem = {
                     {
                         name: "Вложенная пустая папка папка",
                         systemUnitType: 'folder',
+                        files: [],
                         uniqueId: Math.random().toString(16).slice(2),
                         folders: [
                             {
                                 name: 'Дважды-вложенная-папка-с-файлом',
                                 systemUnitType: 'folder',
                                 uniqueId: Math.random().toString(16).slice(2),
+                                folders:[],
                                 files: [
                                     {
                                         name: 'Все заебись',
@@ -137,6 +146,7 @@ let testFileSystem : IFileSystem = {
                         name: "Вложенная пустая папка папка 2",
                         systemUnitType: 'folder',
                         uniqueId: Math.random().toString(16).slice(2),
+                        folders:[],
                         files: [
                             {
                                 name: 'Все заебись',
@@ -354,7 +364,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     return ( 
     <div className='notes-page'>
         {/* pass user`s files to explorer on left side and hook to change displayable file*/}
-            <Explorer currentFile={{currentFile : currentFile, openFile : setcurrentFile}} fileSystem={{fs: fileSystem, changeFS: setfileSystem}}   />
+            <Explorer currentDisplayableFile={{currentFile : currentFile, openFile : setcurrentFile}} fileSystem={{fs: fileSystem, changeFS: setfileSystem}}   />
             <TextEditor file={currentFile}/>
     </div> );
 }
