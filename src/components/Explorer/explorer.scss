@@ -1,4 +1,9 @@
+$explorer-footer-height: 40px;
+
 .explorer-container{
+    @media (max-width: 700px) {
+        width: 100%;
+    }
     width: 300px;
     height: 100%;
     max-height: calc(100% - 45px);
@@ -9,12 +14,13 @@
     
     background-color: var(--background-second);
     .explorer-provider{
-        height: calc(100% - 30px);
+        height: calc(100% - $explorer-footer-height);
         scrollbar-width: 2em;
         overflow-y: scroll;
+        overflow-x: hidden;
     }
     .explorer-footer{
-        height: 30px;
+        height: $explorer-footer-height;
         color:var(--text-main);
         background-color: var(--background-main);
         display: flex;
@@ -22,18 +28,29 @@
         justify-content: space-evenly;
         cursor: pointer;
         div{
-            display: flex;
-            align-items: center;
+            height: $explorer-footer-height;
+            span{
+                line-height: $explorer-footer-height;
+            }
         }
     }
     .explorer-rename-input{
+        height: 100%;
+        margin-left: 5px;
         width: 240px;
+        white-space: nowrap;
+        overflow-x: hidden;
+        background-color: rgba(0, 0, 0, 0);
+        outline: none;
+        border: 0;
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
     }
 }
 
 .file-line{
     padding: 3px 0;
-    max-width: 300px;
+    width: 100%;
     min-height: 26px;
     border: 0px;
     display: flex;
@@ -51,7 +68,7 @@
         margin-left: 3px;
         margin-top: auto;
         margin-bottom: auto;
-        filter: invert(98%) sepia(1%) saturate(4584%) hue-rotate(48deg) brightness(125%) contrast(60%)
+        filter: var(--filter);
     }
     div{
         margin-left: 5px;
@@ -61,23 +78,15 @@
     }
 }
 
-.file-line-editName{
-    max-height: 24px;
-    width: 100%;
-    resize: none;
-    white-space: nowrap;
-    overflow-x: hidden;
-    background-color: rgba(255, 255, 255, 0);
-    &:focus{
-        outline: none;
-    }
+.explorer-editable-file{
+    background-color: var(--file-editable-bg) !important;
 }
 
-.true{
+.explorer-active-file{
     // if file hover still active color
-    background-color: var(--active-file-bg) !important;
+    background-color: var(--file-active-bg) !important;
 }
 
 .folder-submenu{
-    min-width: 100%;
+    width: 100%;
 }

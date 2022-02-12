@@ -15,17 +15,19 @@ const RenderFilesHandler: React.FunctionComponent<RenderFilesHandlerProps> = (pr
         <div>
             {
                 props.root.files?.map((item) => {
-                    return <File ctxMenu={props.ctxMenu}
-                    key={item.uniqueId}
-                    fileSystem={props.fileSystem}
-                    currentItem={item}
-                    nestLvl={props.nestLvl} 
-                    datatype={DataType.File} 
+                    return <File 
                     active={item==props.currentFile.currentFile}
-                    currentFile={props.currentFile}>
-                        {item.name}</File>})
+                    ctxMenu={props.ctxMenu}
+                    currentFile={props.currentFile}
+                    currentItem={item}
+                    datatype={DataType.File} 
+                    fileSystem={props.fileSystem}
+                    key={item.uniqueId}
+                    nestLvl={props.nestLvl} 
+                    >
+                        {item.name}
+                    </File>})
             }
-            
         </div>
     );
 }

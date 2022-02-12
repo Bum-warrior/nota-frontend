@@ -7,11 +7,19 @@
     --scrollbar-border: var(--background-second);
     --scrollbar-hover: rgb(128,128,128);
     --scrollbar-active: rgb(77, 77, 77);
-    --active-file-bg: rgb(196, 151, 28) ;
-    --active-file-text:var(#1d1d1d);
-    --file-line-hover: #61615f;
+    --file-active-bg: rgb(75, 75, 75) ;
+    --file-active-text:var(#1d1d1d);
+    --file-line-hover: rgb(50, 50, 50);
+    --file-editable-bg: var(--warning);
     --ctx-menu-hover: rgb(194, 194, 194);
     --editor-container: rgb(207, 207, 207);
+    
+    --negative: #e91429;
+    --warning: #ffa42b;
+    --positive: #1ed760;
+    --announcement: #0d72ea;
+
+    --filter: invert(98%) sepia(1%) saturate(4584%) hue-rotate(48deg) brightness(125%) contrast(60%);
 }
   
   

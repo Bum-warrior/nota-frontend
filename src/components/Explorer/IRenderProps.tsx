@@ -7,6 +7,8 @@ export default interface IRenderProps{
     ctxMenu : {
         lastMenu: Function;
         setlastMenu: Function;
+        lastClickedFile: string;
+        setlastClickedFile: Function;
     };
     fileSystem : {
         fs : IFolder;

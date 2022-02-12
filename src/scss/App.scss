@@ -46,20 +46,17 @@ html {
     height: 45px;
     text-align: center;
     .nav-title, .nav-profile{
+      @media (max-width: 700px) {
+        width: 100%;
+        padding: 0 30px;
+      }
       width: 300px;
-    }
-    .nav-btn-list{
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
     }
     .nav-btn{
       display: flex;
       flex-direction: row;
       align-items: center;
-      
-      a{
+      a, div{
         font-size: 100%;
         text-decoration: none;
         color: var(--text-main);

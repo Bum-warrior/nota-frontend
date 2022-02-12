@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { System } from 'typescript';
 import IFile from '../TextEditor/interfaces/IFile';
 import IFileSystemObject from '../TextEditor/interfaces/IFileSystemObject';
@@ -25,6 +25,8 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
 
     const [isEditable, setisEditable] = useState(false);
     const [name, setname] = useState(props.children?.toString());
+
+    const editNameRef = useRef(HTMLInputElement) as unknown as React.MutableRefObject<HTMLInputElement>;
     
     function showCtxMenu(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault();
@@ -54,11 +56,19 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     }
 
     function hideCtxMenu(){
-        setisShown(false)
-        props.ctxMenu.setlastMenu(undefined)
-        document.removeEventListener("click", hideCtxMenu)
+        setisShown(false);
+        props.ctxMenu.setlastMenu(undefined);
+        document.removeEventListener("click", hideCtxMenu);
     }
-    
+
+    function startEditing(){
+        setisEditable(true);    
+    }
+
+    function stopEditing(){
+        setisEditable(false);
+    }
+
     function deleteCurrentItem(){
         console.log("=====================")
         console.log(`object: `);
@@ -88,39 +98,46 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         if (searchedFodler.files !== undefined){
             for (let i = 0; i < searchedFodler.files.length; i++){
                 if (id === searchedFodler.files[i].uniqueId){
-                    return searchedFodler.files[i]
+                    return searchedFodler.files[i];
                 }
             }
         }
         if (searchedFodler.folders !== undefined){
             for (let i = 0; i < searchedFodler.folders.length; i++){
                 if (id === searchedFodler.folders[i].uniqueId){
-                    return searchedFodler.folders[i]
+                    return searchedFodler.folders[i];
                 } else {
-                    return findElementById(id, searchedFodler.folders[i])
+                    return findElementById(id, searchedFodler.folders[i]);
                 }
             }
         }
     }
 
     useEffect(() =>{
-        if(!props.active){
-            setisEditable(false)
+        if(props.ctxMenu.lastClickedFile !== props.currentItem.uniqueId){
+            stopEditing();
         }
-        console.log('Updated File')
+        if(isEditable){
+            editNameRef.current.focus();
+        }
+        console.log('RERENDER COMPONENT');
     })
 
+    
     function test(){
-        console.log(props.fileSystem.fs)
+        console.log(props.fileSystem.fs);
     }
 
+    const bgStyle = (isEditable)? `explorer-editable-file` : (props.active)? `explorer-active-file` : ''
+
     return ( 
-        <div className={`file-line ${props.active}`}
+        <div className={`file-line ${bgStyle}`}
         //padding +20px by one nesting lvl
             style={{paddingLeft : `${(props.nestLvl==undefined)? 0 : props.nestLvl * 20}px`}} 
             
             onClick={(e) => {
                 //open file if not a folder
+                props.ctxMenu.setlastClickedFile(props.currentItem.uniqueId)
                 if (props.currentItem.systemUnitType !== 'folder'){
                     props.currentFile.openFile(props.currentItem)
                 }
@@ -137,7 +154,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
             {
                 !isEditable && 
                 <div className='file-line-name'>
-                    {name}
+                    {`${name}`}
                 </div>
             }
             {
@@ -150,7 +167,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
                         currentElement.name = name;
                     }
                     }}>
-                    <input className='explorer-rename-input' type={'text'} value={name} onChange={(e) =>setname(e.target.value)}></input>
+                    <input ref={editNameRef} className='explorer-rename-input' type={'text'} value={name} onChange={(e) =>setname(e.target.value)}></input>
                 </form>
             }
             
@@ -165,9 +182,8 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
 
 
                     <div className='ctx-menu-element' onClick={(e) => {
-                        setisEditable(true);
-                        e.stopPropagation();
-                        }}>
+                        startEditing()
+                        e.preventDefault()}}>
                     <div><span>Переименовать</span></div></div>
                     
 
@@ -178,8 +194,8 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
                 isShown && props.currentItem.systemUnitType === 'file' &&
                 <div className='ctx-menu-container'
                     style={{top: position.y, left: position.x}}>
-                    <div className='ctx-menu-element' onClick={() => {setisEditable(true)}}><div><span>Переименовать</span></div></div>
-                    <div className='ctx-menu-element' onClick={() => {deleteCurrentItem()}}><div><span>Удалить</span></div></div>
+                    <div className='ctx-menu-element' onClick={(e) => {startEditing()}}><div><span>Переименовать</span></div></div>
+                    <div className='ctx-menu-element' onClick={(e) => {deleteCurrentItem()}}><div><span>Удалить</span></div></div>
                 </div>
             }
         </div>

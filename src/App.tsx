@@ -9,7 +9,7 @@ import TimerPage from './components/pages/TimerPage';
 import TestPage from './components/pages/TestPage';
 
 function App() {
-  
+  document.title="Nota";
   return (
     <BrowserRouter>
       <div data-theme='dark' className='main-container'>
@@ -20,30 +20,14 @@ function App() {
               Nota
               </span>
             </div>
-            <div className='nav-btn-list'>
-              <div className='nav-btn'>
-                <NavLink to="/timer">Таймер</NavLink>
-              </div>
-              <div className='nav-btn'>
-                <NavLink to="/notes">Заметки</NavLink>
-              </div>
-              <div className='nav-btn'>
-                <NavLink to="/stats">Статистика</NavLink>
-              </div>
-            </div>
-            
             <div className='nav-btn'>
               <div className='nav-profile'>
-                <NavLink to="/test">Test</NavLink>
+                <div >Настройки</div>
               </div>
             </div>
           </div>
         </div>
-        <Routes>
-          <Route path={'/timer'} element={<TimerPage></TimerPage>}/>
-          <Route path={'/notes'} element={<NotesPage></NotesPage>}/>
-          <Route path={'/test'} element={<TestPage></TestPage>}/>
-        </Routes>
+        <NotesPage/>
       </div>
     </BrowserRouter>
   );

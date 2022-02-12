@@ -18,6 +18,7 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
                 props.root.folders?.map((item) => {
                     return <Folder 
                     currentItem={item}
+                    root={item}
                     key={item.uniqueId}
                     ctxMenu={props.ctxMenu}
                     fileSystem={props.fileSystem}
@@ -25,11 +26,11 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
                     datatype={DataType.Folder} 
                     active={false} 
                     currentFile={props.currentFile}
-                    root={item}
                     // onClick={() => {
                     // }}
                     >
-                        {item.name}</Folder>})
+                        {item.name}
+                    </Folder>})
             }
         </div>
     );
