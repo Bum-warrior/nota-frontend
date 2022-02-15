@@ -27,7 +27,10 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
             nestLvl={props.nestLvl}
             onClick={(e) => {
                 if(!e.defaultPrevented) {
-                    setsubMenuVisibleState(!subMenuVisibleState)
+                    setsubMenuVisibleState(!subMenuVisibleState);
+                }
+                if(e.defaultPrevented){
+                    setsubMenuVisibleState(true);
                 }
             }}>{props.root.name}</File>
             {

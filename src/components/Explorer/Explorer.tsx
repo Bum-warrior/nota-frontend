@@ -16,9 +16,7 @@ export interface ExplorerProps extends Pick<IRenderProps, 'fileSystem'>{
 const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps) => {
     const [lastMenu, setlastMenu] = useState(Function);
     const [lastClickedFile, setlastClickedFile] = useState('');
-    const [isCreating, setisCreating] = useState(false);
-    const [name, setname] = useState("");
-    const [creatingType, setcreatingType] = useState("file");
+    const [updateFlag, setupdateFlag] = useState(false);
 
     useEffect(() => {
         console.log("FILE TREE UPDATED")
@@ -48,61 +46,45 @@ const Explorer: React.FunctionComponent<ExplorerProps> = (props : ExplorerProps)
             currentDisplayableFile={props.currentDisplayableFile} 
             />
             </section>
-            {
-                !isCreating &&
-                <div className='explorer-footer'>
-                    <div onClick={(e) => {
-                        setisCreating(true);
-                        setcreatingType("file");
-                        console.log(isCreating);
+            <div className='explorer-footer'>
+                <div onClick={(e) => {
+                    console.log("CALL")
+                    e.preventDefault()  
+                    //ANY but it can be only folder cause of checking type upper
+                    //i made it cause it can be file or folder, but here only folder and idk how do this in right way
+                    let currentFolder: any = props.fileSystem.fs;
+                    console.log("CURRENT FOLDER",currentFolder)
+                    let newFile: IFile = {
+                        name: 'Новый файл',
+                        text: '',
+                        systemUnitType: 'file',
+                        uniqueId: Math.random().toString(16).slice(2),
+                        initialEdit: true,
+                    }
+                    currentFolder.files.push(newFile);
+                    setupdateFlag(!updateFlag);
                     }}>
-                        <span>Создать файл</span>
-                    </div>
-                    <div onClick={(e) => {
-                        setisCreating(true);
-                        setcreatingType("folder");
-                        console.log(isCreating);
+                    <span>Создать файл</span>
+                </div>
+                <div onClick={(e) => {
+                    e.preventDefault();
+                    //ANY but it can be only folder cause of checking type upper
+                    //i made it cause it can be file or folder, but here only folder and idk how do this in right way
+                    let currentFolder: any = props.fileSystem.fs;
+                    let newFolder: IFolder = {
+                        name: 'Новая папка',
+                        files:[],
+                        folders:[],
+                        systemUnitType: 'folder',
+                        uniqueId: Math.random().toString(16).slice(2),
+                        initialEdit: true,
+                    }
+                    currentFolder.folders.push(newFolder);
+                    setupdateFlag(!updateFlag);
                     }}>
-                    <span>Создать папку</span>
-                    </div>
+                <span>Создать папку</span>
                 </div>
-            }
-            {
-                isCreating &&
-                <div className='explorer-footer'>
-                    <form onSubmit={(e: React.SyntheticEvent) => {
-                            e.preventDefault();
-                            setisCreating(false);
-                            switch (creatingType) {
-                                case "file":
-                                    let newFile : IFile = {
-                                        name: name,
-                                        text: '',
-                                        systemUnitType: 'file',
-                                        uniqueId: Math.random().toString(16).slice(2),
-                                    }
-                                    props.fileSystem.fs.files?.push(newFile);
-                                    break;
-                                case "folder":
-                                    let newFolder : IFolder = {
-                                        name: name,
-                                        folders: [],
-                                        files: [],
-                                        systemUnitType: 'folder',
-                                        uniqueId: Math.random().toString(16).slice(2),
-                                    }
-                                    props.fileSystem.fs.folders?.push(newFolder);
-                                break
-                                default:
-                                    break;
-                            }
-                        }}>
-                        <label htmlFor='name'>Название:</label>
-                        <input type="text" id='name' value={name} autoComplete={'off'} onChange={(e) => setname(e.target.value)}/>
-                    </form>
-                </div>
-            }
-            
+            </div>       
         </div>
     );
 }

@@ -20,6 +20,7 @@ $explorer-footer-height: 40px;
         overflow-x: hidden;
     }
     .explorer-footer{
+        user-select: none;
         height: $explorer-footer-height;
         color:var(--text-main);
         background-color: var(--background-main);
