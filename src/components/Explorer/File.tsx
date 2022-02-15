@@ -91,6 +91,11 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         if(props.ctxMenu.lastClickedFile !== props.currentItem.uniqueId){
             stopEditing();
         }
+        if (props.currentItem.initialEdit === true){
+            props.ctxMenu.setlastClickedFile(props.currentItem.uniqueId);
+            startEditing();
+            delete props.currentItem.initialEdit;
+        }
         if(isEditable){
             editNameRef.current.focus();
         }
@@ -152,10 +157,11 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
                         //i made it cause it can be file or folder, but here only folder and idk how do this in right way
                         let currentFolder: any = props.currentItem;
                         let newFile: IFile = {
-                            name: 'НовыйФайл',
+                            name: 'Новый файл',
                             text: '',
                             systemUnitType: 'file',
                             uniqueId: Math.random().toString(16).slice(2),
+                            initialEdit: true,
                         }
                         currentFolder.files.push(newFile);
                         }}>
@@ -172,6 +178,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
                             folders:[],
                             systemUnitType: 'folder',
                             uniqueId: Math.random().toString(16).slice(2),
+                            initialEdit: true,
                         }
                         currentFolder.folders.push(newFolder);
                         }}>
