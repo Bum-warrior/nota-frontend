@@ -1,23 +1,41 @@
-.editor-container{
+.text-editor-container{
     @media (max-width: 700px) {
         display: none;
     }
-    background-color: var(--editor-container);
+    background-color: var(--background-second);
     position: absolute;
     top:45px;
     bottom: 0;
     left:300px;
     right:0;
     height: calc(100% - 45px);
-    overflow-y:scroll;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+
+    line-height: 1.5em;
+    > div > div, article{
+        background-color: #fff;
+        text-align: justify;
+        padding: 20px 30px;
+        outline: none;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100% - 50px);
+        padding-bottom: 30px;
+    }
+
+    .text-editor-display-wrapper{
+        width: 50%;
+        overflow-y: scroll;
+        height: 100%;
+        .text-editor{
+            
+        }
+        .text-editor-display{
+            
+        }
+    }
 }
 
-.editor{
-    line-height: 1.5;
-    text-align: justify;
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    margin: 3% 20%;
-    padding-bottom: 30px;
-}
+

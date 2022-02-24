@@ -1,6 +1,7 @@
 import React, { Children, Component, useState, useRef, useEffect } from 'react'
 import IFile from './interfaces/IFile'
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
+import TextDisplay from './TextDisplay';
 
 
 interface TextEditorProps {
@@ -9,27 +10,54 @@ interface TextEditorProps {
 
 
 const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorProps) => {
+    const [text, settext] = useState('');
 
+    function saveChange(e: ContentEditableEvent){
+        let newValue : string = e.currentTarget.innerHTML;
+
+        // wrap first string in div
+        if(newValue[0] !== '<'){
+            console.log("REPLACER WORKED")
+            let mathString = '';
+            for(let i = 0; i < newValue.length; i++){
+                if(newValue[i] !== '<'){
+                    mathString = mathString + newValue[i];
+                } else {
+                    break;
+                }
+            }
+            newValue = newValue.replace(mathString, `<div>${mathString}</div>`)
+        }
+        
+
+        settext(newValue);
+        if(props!=undefined && props.file!=undefined){
+            props.file.text=newValue;
+        }
+    }
+
+    useEffect(() => {
+        settext((props.file?.text)? props.file.text : '')
+    })
 
     return (
-        <div className='editor-container'>
-            <ContentEditable
-                className='editor'
-                html={props.file? props.file.text : ''} // innerHTML of the editable div
-                disabled={props.file? false : true}       // use true to disable editing  /  if file exist disable == false
-                onChange={(e) => {saveChange(e, props)}} // handle innerHTML change
-                tagName='article' // Use a custom HTML tag (uses a div by default)
-            >
-            </ContentEditable>
+        <div className='text-editor-container'>
+            <div className='text-editor-display-wrapper'>
+                <ContentEditable
+                    className='text-editor'
+                    html={text} // innerHTML of the editable div
+                    disabled={props.file? false : true}       // use true to disable editing  /  if file exist disable == false
+                    onChange={(e) => {saveChange(e)}} // handle innerHTML change
+                    tagName='article' // Use a custom HTML tag (uses a div by default)
+                />
+            </div>
+            <div className='text-editor-display-wrapper'>
+                <TextDisplay displayText={text}/>
+            </div>
         </div>
     );
 }
 
-function saveChange(e: ContentEditableEvent, props: TextEditorProps){
-    const newValue = e.currentTarget.innerHTML;
-    if(props!=undefined && props.file!=undefined){
-        props.file.text=newValue;
-    }
-}
+
 
 export default TextEditor;
