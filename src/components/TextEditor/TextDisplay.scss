@@ -1,7 +1,33 @@
-.header1{
-    padding: 5px;
-    background-color: rgb(218, 218, 218);
+.md-header1{
+    margin: 7px 0px;
+    padding: 5px 15px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 5px;
+    font-size:x-large;
+    
+    &::after{
+       
+    }
+}
+
+.md-header2{
+    margin: 7px 0px 7px 40px;
+    padding: 5px 15px;
+    background-color: rgb(230, 230, 230);
     border-radius: 5px;
     font-size: large;
-    // font-weight: 900;
+}
+
+.md-header3{
+    margin: 7px 0px 7px 80px;
+    padding: 5px 15px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.md-todo{
+    input{
+        margin: 3px;
+    }
 }

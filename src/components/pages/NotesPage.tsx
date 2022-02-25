@@ -170,7 +170,7 @@ let testFileSystem : IFileSystem = {
         files: [
             {
                 name: 'Я Обычный файлик',
-                text: 'Привет я Олег',
+                text: 'TEXT: <div>#Привет я Олег</div><div>##Привет я Олег<br></div><div>###Привет я Олег<br></div><div>КУ я обычный текст</div><div>[] da</div><div>[x] net</div><div>```cmd</div><div>little command</div><div>```</div><div>```code</div><div>function healMe(){</div><div>&nbsp; &nbsp; health+=100;</div><div>}</div><div>```</div>',
                 systemUnitType: 'file',
                 uniqueId: Math.random().toString(16).slice(2),
             },
