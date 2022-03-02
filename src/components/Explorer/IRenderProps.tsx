@@ -1,4 +1,3 @@
-import IFileSystem from "../TextEditor/interfaces/IFileSystem";
 import IFolder from "../TextEditor/interfaces/IFolder";
 
 export default interface IRenderProps{

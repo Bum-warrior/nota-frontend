@@ -1,4 +1,3 @@
-import React from 'react'
 import IFile from './IFile';
 import IFileSystemObject from './IFileSystemObject';
 

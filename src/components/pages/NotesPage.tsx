@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { text } from 'stream/consumers';
 import Explorer from '../Explorer/Explorer';
 import IFile from '../TextEditor/interfaces/IFile';
-import IFileSystem from '../TextEditor/interfaces/IFileSystem';
 import IFolder from '../TextEditor/interfaces/IFolder';
 import TextEditor from '../TextEditor/TextEditor';
 import axios from 'axios';
@@ -15,31 +14,34 @@ interface NotesPageProps {
 
 
 
-let empty : IFileSystem = {
-    root: {
-        name:'',
-        systemUnitType: 'folder',
-        uniqueId: Math.random().toString(16).slice(2),
-        folders: [],
-        files: [],
-    }
+let empty : IFolder = {    
+    name:'',
+    systemUnitType: 'folder',
+    uniqueId: Math.random().toString(16).slice(2),
+    folders: [],
+    files: [],
 }
 
 const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProps) => {
     
     const [currentFile, setcurrentFile] = useState<IFile>();
-    const [fileSystem, setfileSystem] = useState(empty.root);
+    const [fileSystem, setfileSystem] = useState(empty);
     const [dataLoaded, setdataLoaded] = useState(false);
 
     async function saveFileSystemOnServer() {
-        let response = await axios.post(config.BACKEND_ADDRES+'filesystem', );
-        console.log(response);
+        try{
+            let response = await axios.post(config.BACKEND_ADDRES+'filesystem', fileSystem);
+            console.log(response);
+        }catch (e){
+            console.log(e);
+        }
+        
     }
 
     async function fetchFileSystemFromServer() {
         try{
             let responseRoot = await axios.get(config.BACKEND_ADDRES+'filesystem');
-            setfileSystem(responseRoot.data.root);
+            setfileSystem(responseRoot.data);
             console.log('DATA FROM SERVER', responseRoot.data)
             setdataLoaded(true)
         } catch (e){
@@ -48,9 +50,11 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     }
 
     useEffect(() => {
-        console.log('serverAction')
+        
         if(!dataLoaded){
-            fetchFileSystemFromServer()
+            fetchFileSystemFromServer();
+        } else {
+            saveFileSystemOnServer();
         }
     })
 
