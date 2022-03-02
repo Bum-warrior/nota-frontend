@@ -2,10 +2,12 @@ import React, { Children, Component, useState, useRef, useEffect } from 'react'
 import IFile from './interfaces/IFile'
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
 import TextDisplay from './TextDisplay';
-
+import axios from 'axios';
+import config from '../../config';
 
 interface TextEditorProps {
     file?: IFile;
+    updateFileSystem: Function;
 }
 
 
@@ -14,7 +16,6 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorP
 
     function saveChange(e: ContentEditableEvent){
         let newValue : string = e.currentTarget.innerHTML;
-
         // wrap first string in div
         if(newValue[0] !== '<'){
             console.log("REPLACER WORKED")
@@ -29,11 +30,12 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorP
             newValue = newValue.replace(mathString, `<div>${mathString}</div>`)
         }
         
-
         settext(newValue);
         if(props!=undefined && props.file!=undefined){
             props.file.text=newValue;
         }
+
+        props.updateFileSystem()
     }
 
     useEffect(() => {
