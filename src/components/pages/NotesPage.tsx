@@ -31,7 +31,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     async function saveFileSystemOnServer() {
         try{
             let response = await axios.post(config.BACKEND_ADDRES+'filesystem', fileSystem);
-            console.log(response);
+            console.log("UPDATE OK");
         }catch (e){
             console.log(e);
         }
