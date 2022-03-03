@@ -45,7 +45,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
             console.log('DATA FROM SERVER', responseRoot.data)
             setdataLoaded(true)
         } catch (e){
-            console.log(e)
+            setTimeout(fetchFileSystemFromServer, 3000)
         }
     }
 
@@ -59,7 +59,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     })
 
     if(!dataLoaded){
-        return <div>Loading</div>
+        return <div className='loading-explorer'>Loading...</div>
     }
 
     return ( 

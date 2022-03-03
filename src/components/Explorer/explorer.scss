@@ -10,9 +10,10 @@ $explorer-footer-height: 40px;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    overflow-y: hidden;
-    
+    overflow-y: hidden;    
     background-color: var(--background-second);
+    
+
     .explorer-provider{
         height: calc(100% - $explorer-footer-height);
         scrollbar-width: 2em;
@@ -90,8 +91,4 @@ $explorer-footer-height: 40px;
 .explorer-active-file{
     // if file hover still active color
     background-color: var(--file-active-bg) !important;
-}
-
-.folder-submenu{
-    width: 100%;
 }

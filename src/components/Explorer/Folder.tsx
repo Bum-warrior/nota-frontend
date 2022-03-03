@@ -5,6 +5,7 @@ import File from './File'
 import {FileProps} from './File'
 import RenderFilesHandler, {RenderFilesHandlerProps} from './RenderFilesHandler';
 import RenderFoldersHandler, {RenderFoldersHandlerProps} from './RenderFoldersHandler'
+import {animated, useTransition} from 'react-spring';
 
 export interface FolderProps extends FileProps, RenderFilesHandlerProps, RenderFoldersHandlerProps{
     currentItem: IFolder;
@@ -12,11 +13,29 @@ export interface FolderProps extends FileProps, RenderFilesHandlerProps, RenderF
 
 const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
     const [subMenuVisibleState, setsubMenuVisibleState] = useState(false);
-    
+    const transition = useTransition(subMenuVisibleState, {
+        from: {
+            x: 100,
+            opacity: 0,
+            height: 0,
+            
+        },
+        enter:{
+            x: 0,
+            opacity: 1,
+            height: 'auto',
+            
+        },
+        leave: {
+            x: 100,
+            opacity: 0,
+            height: 0,
+        },
+    })
     //if submenu visible it will contain files and folders, else none
     
     return (
-        <div>
+        <div className='folder-container'>
             <File 
             active={props.active}
             ctxMenu={props.ctxMenu}
@@ -34,8 +53,9 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
                 }
             }}>{props.root.name}</File>
             {
-                subMenuVisibleState ? 
-                <div className='folder-submenu'>
+                transition((style, item) =>
+                item ?
+                <animated.div className='folder-submenu' style={style}>
                 <RenderFoldersHandler 
                 fileSystem={props.fileSystem} 
                 currentItem={props.currentItem} 
@@ -49,7 +69,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
                 nestLvl={props.nestLvl+1} 
                 root={props.root} 
                 currentDisplayableFile={props.currentDisplayableFile}/>
-                </div> : null
+                </animated.div>: null)
             }
         </div>      
     );
