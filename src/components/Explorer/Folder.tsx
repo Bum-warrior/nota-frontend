@@ -6,6 +6,7 @@ import {FileProps} from './File'
 import RenderFilesHandler, {RenderFilesHandlerProps} from './RenderFilesHandler';
 import RenderFoldersHandler, {RenderFoldersHandlerProps} from './RenderFoldersHandler'
 import {animated, useTransition} from 'react-spring';
+import { DataType } from './IconsProvider';
 
 export interface FolderProps extends FileProps, RenderFilesHandlerProps, RenderFoldersHandlerProps{
     currentItem: IFolder;
@@ -15,7 +16,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
     const [subMenuVisibleState, setsubMenuVisibleState] = useState(false);
     const transition = useTransition(subMenuVisibleState, {
         from: {
-            x: 100,
+            x: 300,
             opacity: 0,
             height: 0,
             
@@ -27,7 +28,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
             
         },
         leave: {
-            x: 100,
+            x: 300,
             opacity: 0,
             height: 0,
         },
@@ -41,7 +42,7 @@ const Folder: React.FunctionComponent<FolderProps> = (props: FolderProps) => {
             ctxMenu={props.ctxMenu}
             currentDisplayableFile={props.currentDisplayableFile}
             currentItem={props.currentItem}
-            datatype={props.datatype}
+            datatype={subMenuVisibleState? DataType.FolderClose: DataType.FolderOpen}
             fileSystem={props.fileSystem}
             nestLvl={props.nestLvl}
             onClick={(e) => {

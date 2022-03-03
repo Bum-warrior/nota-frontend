@@ -23,7 +23,6 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
                     ctxMenu={props.ctxMenu}
                     fileSystem={props.fileSystem}
                     nestLvl={props.nestLvl}
-                    datatype={DataType.Folder} 
                     active={false} 
                     currentDisplayableFile={props.currentDisplayableFile}
                     // onClick={() => {
