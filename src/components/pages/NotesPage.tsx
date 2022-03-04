@@ -26,35 +26,42 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     
     const [currentFile, setcurrentFile] = useState<IFile>();
     const [fileSystem, setfileSystem] = useState(empty);
+    
+    const [connectionStart, setconnectionStart] = useState(false);
     const [dataLoaded, setdataLoaded] = useState(false);
+    const [syncStarted, setsyncStarted] = useState(false);
 
-    async function saveFileSystemOnServer() {
+    async function saveFileSystemOnServer(fileSystem: IFolder) {
         try{
-            let response = await axios.post(config.BACKEND_ADDRES+'filesystem', fileSystem);
-            console.log("UPDATE OK");
+            await axios.post(config.BACKEND_ADDRES+'filesystem', fileSystem);
+            console.log("UPDATE^");
         }catch (e){
             console.log(e);
         }
-        
     }
 
     async function fetchFileSystemFromServer() {
         try{
             let responseRoot = await axios.get(config.BACKEND_ADDRES+'filesystem');
+            setdataLoaded(true)
             setfileSystem(responseRoot.data);
             console.log('DATA FROM SERVER', responseRoot.data)
-            setdataLoaded(true)
         } catch (e){
             setTimeout(fetchFileSystemFromServer, 3000)
         }
     }
 
     useEffect(() => {
-        
-        if(!dataLoaded){
+        console.log("MOUNTED");
+        if(!connectionStart){
             fetchFileSystemFromServer();
-        } else {
-            saveFileSystemOnServer();
+            setconnectionStart(true);
+        }
+        if(dataLoaded && !syncStarted){
+            setsyncStarted(true);
+            setInterval(()=>{
+                saveFileSystemOnServer(fileSystem)
+            },5000);
         }
     })
 
@@ -66,7 +73,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     <div className='notes-page'>
         {/* pass user`s files to explorer on left side and hook to change displayable file*/}
             <Explorer currentDisplayableFile={{currentFile : currentFile, openFile : setcurrentFile}} fileSystem={{fs: fileSystem, changeFS: setfileSystem}}   />
-            <TextEditor file={currentFile} updateFileSystem={saveFileSystemOnServer}/>
+            <TextEditor file={currentFile}/>
     </div> );
 }
  

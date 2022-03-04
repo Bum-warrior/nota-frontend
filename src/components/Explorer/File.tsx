@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
-import { System } from 'typescript';
+import { convertTypeAcquisitionFromJson, System } from 'typescript';
 import IFile from '../TextEditor/interfaces/IFile';
 import IFileSystemObject from '../TextEditor/interfaces/IFileSystemObject';
 import IFolder from '../TextEditor/interfaces/IFolder';
@@ -24,7 +24,7 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
     const [position, setposition] = useState({x: 0, y: 0});
 
     const [isEditable, setisEditable] = useState(false);
-    const [name, setname] = useState(props.children?.toString());
+    const [name, setname] = useState(props.currentItem.name);
 
     const editNameRef = useRef(HTMLInputElement) as unknown as React.MutableRefObject<HTMLInputElement>;
     
@@ -61,13 +61,23 @@ const File: React.FunctionComponent<FileProps> = (props: FileProps) => {
         document.removeEventListener("click", hideCtxMenu);
     }
 
+
+    ///On editing started adding event listener on click.
+    ///On event eventListener compare click target and if its not a input stop editing and remove event listener
     function startEditing(){
-        setisEditable(true);    
+        setisEditable(true);
+        setTimeout(() => {
+            document.addEventListener('click', stopEditing)
+        }, 100)
     }
 
-    function stopEditing(){
+    function stopEditing(e?: MouseEvent){
+        if (`${e?.target}` !== '[object HTMLInputElement]'){
+            document.removeEventListener('click', stopEditing);
+        }
         setisEditable(false);
     }
+    ///
 
     function deleteCurrentItem(){
         if (props.currentItem.systemUnitType == 'file'){deleteFile(props.currentItem.uniqueId, props.fileSystem.fs)};

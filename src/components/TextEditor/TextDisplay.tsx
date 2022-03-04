@@ -111,6 +111,8 @@ const TextDisplay: React.FunctionComponent<TextDisplayProps> = (props : TextDisp
 
                 //CODE block md
                 if(sourceString.startsWith('```')){
+                    sourceString = ' ';
+                    divList[i] = wrapStringWithElement(sourceString, 'div')
                     codeWrapper.addListIndex(i);
                 }
                 //

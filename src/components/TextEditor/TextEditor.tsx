@@ -7,7 +7,7 @@ import config from '../../config';
 
 interface TextEditorProps {
     file?: IFile;
-    updateFileSystem: Function;
+    
 }
 
 
@@ -34,8 +34,6 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorP
         if(props!=undefined && props.file!=undefined){
             props.file.text=newValue;
         }
-
-        props.updateFileSystem()
     }
 
     useEffect(() => {
