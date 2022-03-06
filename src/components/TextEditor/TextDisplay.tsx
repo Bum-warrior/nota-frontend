@@ -23,10 +23,10 @@ class Wrapper{
     }
 
     process(){
-        console.log('DONT PROCESSED LIST',this.sourceList);
-        console.log('ELEMENT LENG', this.elements.length)
+        // console.log('DONT PROCESSED LIST',this.sourceList);
+        // console.log('ELEMENT LENG', this.elements.length)
         if(this.elements.length % 2 != 0){
-            console.log("POP")
+            // console.log("POP")
             this.elements.pop();
         }
         if(this.sourceList){
@@ -40,8 +40,8 @@ class Wrapper{
             }
         }
         if(!this.sourceList) this.sourceList=[''];
-        console.log('PROCESSED LIST',this.sourceList);
-        console.log('ELEMENTS',this.elements);
+        // console.log('PROCESSED LIST',this.sourceList);
+        // console.log('ELEMENTS',this.elements);
         return this.sourceList;
     }
 }

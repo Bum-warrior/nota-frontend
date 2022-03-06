@@ -11,6 +11,6 @@ export default interface IRenderProps{
     };
     fileSystem : {
         fs : IFolder;
-        changeFS: React.Dispatch<React.SetStateAction<IFolder>>;
+        changeFS: React.Dispatch<React.SetStateAction<IFolder | undefined>>;
     };
 }
