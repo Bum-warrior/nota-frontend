@@ -13,16 +13,6 @@ interface NotesPageProps {
     
 }
 
-
-
-let empty : IFolder = {    
-    name:'TEST FOLDER',
-    systemUnitType: 'folder',
-    uniqueId: Math.random().toString(16).slice(2),
-    folders: [],
-    files: [],
-}
-
 const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProps) => {
     
     const [currentFile, setcurrentFile] = useState<IFile>();
@@ -34,7 +24,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
     async function saveFileSystemOnServer(fileSystem: IFolder) {
         try{
             let res = await axios.post(config.BACKEND_ADDRES+'filesystem', fileSystem);
-            console.log("UPDATE^");
+            console.log("UPDATE^", fileSystem);
             return "ok";
         }catch (e){
             console.log('SAVE ERROR', e);
@@ -77,7 +67,7 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
         
     })
 
-    if(!dataLoaded || fileSystem === undefined){
+    if(fileSystem === undefined){
         return <div className='loading-explorer'>Loading...</div>
     }else{
         return ( 
@@ -88,29 +78,5 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
             </div> );
     }    
 }
- 
+
 export default NotesPage;
-
-// console.log("MOUNTED");
-//         console.log(`ConnectionStart: ${connectionStart} \nDataLoaded: ${dataLoaded}\nsyncStarted: ${syncStarted}`);
-//         if(!connectionStart){
-//             fetchFileSystemFromServer();
-//             setconnectionStart(true);
-//         }
-//         if(dataLoaded && !syncStarted){
-//             let interval = setInterval(async ()=>{
-//                 console.log("INTERVAL")
-//                 if(fileSystem){
-//                     let res = await saveFileSystemOnServer(fileSystem);
-//                     console.log('res', (res !== 200))
-//                     if(res == 200) setsyncStarted(true);
-//                     if(res != 200){
-//                         console.log("PIZDEC");
-//                         setdataLoaded(false);
-//                         setsyncStarted(false);
-//                         setconnectionStart(false);
-//                     }
-//                 }
-//             },5000);
-
-//         }        

@@ -4,6 +4,7 @@ import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
 import TextDisplay from './TextDisplay';
 import axios from 'axios';
 import config from '../../config';
+import ReactMarkdown from 'react-markdown'
 
 interface TextEditorProps {
     file?: IFile;
@@ -53,6 +54,7 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorP
             </div>
             <div className='text-editor-display-wrapper'>
                 <TextDisplay displayText={text}/>
+                
             </div>
         </div>
     );
