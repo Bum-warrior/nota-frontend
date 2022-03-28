@@ -1,9 +1,5 @@
 import React, { Children, Component, useState, useRef, useEffect } from 'react'
 import IFile from './interfaces/IFile'
-import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
-import TextDisplay from './TextDisplay';
-import axios from 'axios';
-import config from '../../config';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -54,7 +50,7 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = (props: TextEditorP
             <div className='text-editor-half-screen'>
                 <div className='text-editor-display-wrapper'>
                     <div className='text-editor-display'>
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[]}>{text}</ReactMarkdown>
                     </div>
                 </div>
             </div>
