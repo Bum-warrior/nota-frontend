@@ -15,16 +15,16 @@ const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> =
     return ( 
         <div>
             {
-                props.root.folders?.map((item) => {
+                props.root.folders?.map((item, index) => {
                     return <Folder 
-                    currentItem={item}
-                    root={item}
-                    key={item.uniqueId}
-                    ctxMenu={props.ctxMenu}
-                    fileSystem={props.fileSystem}
-                    nestLvl={props.nestLvl}
                     active={false} 
+                    ctxMenu={props.ctxMenu}
                     currentDisplayableFile={props.currentDisplayableFile}
+                    currentItem={item}
+                    fileSystem={props.fileSystem}
+                    key={index}
+                    nestLvl={props.nestLvl}
+                    root={item}
                     // onClick={() => {
                     // }}
                     >

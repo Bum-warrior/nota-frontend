@@ -23,8 +23,16 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
 
     async function saveFileSystemOnServer(fileSystem: IFolder) {
         try{
-            let res = await axios.post(config.BACKEND_ADDRES+'filesystem', fileSystem);
-            console.log("UPDATE^", fileSystem);
+            let token = localStorage.getItem("token")
+            if(token === null){
+                throw new Error("")
+            }
+            let response = await axios.post(config.BACKEND_ADDRES+'/filesystem', fileSystem,{
+                headers: {
+                    token : token
+                }
+            });
+            console.log("UPDATE^", response.status);
             return "ok";
         }catch (e){
             console.log('SAVE ERROR', e);
@@ -36,10 +44,18 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
 
     async function fetchFileSystemFromServer() {
         try{
-            let responseRoot = await axios.get(config.BACKEND_ADDRES+'filesystem');
-            setfileSystem(responseRoot.data);
+            let token = localStorage.getItem("token")
+            if(token === null){
+                throw new Error("")
+            }
+            let responseRoot = await axios.get(config.BACKEND_ADDRES+'/filesystem', {
+                headers: {
+                    token : token
+                }
+            });
+            setfileSystem(responseRoot.data.fileSystem);
             setdataLoaded(true);
-            console.log('FETCH STATUS CODE', responseRoot.status);
+            console.log('FETCH STATUS CODE', responseRoot);
             return "ok";
         } catch (e){
             console.log('FETCH ERROR', e);
