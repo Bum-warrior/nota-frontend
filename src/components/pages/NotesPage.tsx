@@ -76,8 +76,9 @@ const NotesPage: React.FunctionComponent<NotesPageProps> = (props: NotesPageProp
         if((dataLoaded) && (fileSystem)){
             console.log("DATA LOADED STATUS on saving", dataLoaded)
             await saveFileSystemOnServer(fileSystem);
+            console.log(fileSystem)
         }
-    }, (firstLoad)? 0 : 5000)
+    }, (firstLoad)? 0 : 15000)
 
     useEffect(() => {
         

@@ -42,7 +42,8 @@
             .text-editor-display{
                 background-color: whitesmoke;
                 height: 95%;
-                width: 95%;
+                width: 90%;
+                padding-right: 20px;
                 position: absolute;
                 top: 50%;
                 left: 52%;
@@ -50,7 +51,7 @@
                 overflow-y: scroll;
                 // styles for processed md
                 p{
-                    text-indent: 20px;
+                    
                 }
                 li{
                     margin: 0px 0px 5px 20px;
@@ -60,13 +61,16 @@
                     max-height: 400px;
                     margin: 20px 5px 20px 20px;
                 }
-                h1, h2, h3, h4, h5, h6 {
-                    margin-left: 20px;
+                a{
+                    color: var(--announcement);
+                    text-decoration: underline;
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
                 blockquote{
                     background-color: var(--light-grey);
-                    width: fit-content;
-                    padding: 3px 20px 3px 0px;
+                    padding: 3px 20px;
                     letter-spacing: .1em;
                 }
                 *{
