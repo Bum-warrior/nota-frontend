@@ -1,42 +1,47 @@
 $explorer-footer-height: 40px;
 
-.explorer-container{
+.explorer-container {
     @media (max-width: 700px) {
         width: 100%;
     }
+
     width: 300px;
     height: 100%;
     max-height: calc(100% - $explorer-footer-height);
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    overflow-y: hidden;    
+    overflow-y: hidden;
     background-color: var(--background-second);
-    
 
-    .explorer-provider{
+
+    .explorer-provider {
         height: calc(100% - $explorer-footer-height);
         scrollbar-width: 2em;
         overflow-y: scroll;
         overflow-x: hidden;
     }
-    .explorer-footer{
+
+    .explorer-footer {
         user-select: none;
         height: $explorer-footer-height;
-        color:var(--text-main);
+        color: var(--text-main);
         background-color: var(--background-main);
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         cursor: pointer;
-        div{
+
+        div {
             height: $explorer-footer-height;
-            span{
+
+            span {
                 line-height: $explorer-footer-height;
             }
         }
     }
-    .explorer-rename-input{
+
+    .explorer-rename-input {
         height: 100%;
         margin-left: 5px;
         width: 100%;
@@ -50,7 +55,7 @@ $explorer-footer-height: 40px;
     }
 }
 
-.file-line{
+.file-line {
     padding: 3px 0;
     max-width: 286px;
     min-height: 26px;
@@ -58,22 +63,25 @@ $explorer-footer-height: 40px;
     display: flex;
     color: var(--text-second);
     user-select: none;
-    .file-line-name{
+
+    .file-line-name {
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    &:hover{
+    &:hover {
         cursor: pointer;
         background-color: var(--file-line-hover);
     }
-    img{
+
+    img {
         margin-left: 3px;
         margin-top: auto;
         margin-bottom: auto;
         filter: var(--filter);
     }
-    div{
+
+    div {
         margin-left: 5px;
         margin-top: auto;
         margin-bottom: auto;
@@ -81,14 +89,15 @@ $explorer-footer-height: 40px;
     }
 }
 
-.explorer-editable-file{
+.explorer-editable-file {
     background-color: var(--file-editable-bg) !important;
-    img{
+
+    img {
         filter: invert(0%) sepia(0%) saturate(49%) hue-rotate(151deg) brightness(98%) contrast(100%);
     }
 }
 
-.explorer-active-file{
+.explorer-active-file {
     // if file hover still active color
     background-color: var(--file-active-bg) !important;
 }

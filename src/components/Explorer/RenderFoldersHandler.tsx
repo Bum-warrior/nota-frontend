@@ -7,32 +7,33 @@ import { ExplorerProps } from './Explorer';
 import IRenderProps from './IRenderProps';
 import IFileSystemObject from '../TextEditor/interfaces/IFileSystemObject';
 
-export interface RenderFoldersHandlerProps extends Omit<ExplorerProps, 'fileSystem'>, IRenderProps, Pick<FolderProps, 'currentItem'>{
+export interface RenderFoldersHandlerProps extends Omit<ExplorerProps, 'fileSystem'>, IRenderProps, Pick<FolderProps, 'currentItem'> {
 
 }
- 
-const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> = (props : RenderFoldersHandlerProps) => {
-    return ( 
+
+const RenderFoldersHandler: React.FunctionComponent<RenderFoldersHandlerProps> = (props: RenderFoldersHandlerProps) => {
+    return (
         <div>
             {
                 props.root.folders?.map((item, index) => {
-                    return <Folder 
-                    active={false} 
-                    ctxMenu={props.ctxMenu}
-                    currentDisplayableFile={props.currentDisplayableFile}
-                    currentItem={item}
-                    fileSystem={props.fileSystem}
-                    key={index}
-                    nestLvl={props.nestLvl}
-                    root={item}
+                    return <Folder
+                        active={false}
+                        ctxMenu={props.ctxMenu}
+                        currentDisplayableFile={props.currentDisplayableFile}
+                        currentItem={item}
+                        fileSystem={props.fileSystem}
+                        key={index}
+                        nestLvl={props.nestLvl}
+                        root={item}
                     // onClick={() => {
                     // }}
                     >
                         {item.name}
-                    </Folder>})
+                    </Folder>
+                })
             }
         </div>
     );
 }
- 
+
 export default RenderFoldersHandler;

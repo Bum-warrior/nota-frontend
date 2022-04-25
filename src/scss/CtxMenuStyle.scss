@@ -1,4 +1,4 @@
-.ctx-menu-container{
+.ctx-menu-container {
     position: absolute;
     z-index: 999;
     display: flex;
@@ -9,36 +9,38 @@
     box-shadow: 0 20px 40px 0 rgb(0 0 0 / 30%);
     display: flex;
     justify-content: space-evenly;
-    
-    
-    .ctx-menu-element{
+
+
+    .ctx-menu-element {
         width: 100%;
         min-height: 33px;
         margin: 0;
-        
-        &:last-child{
-            span{
+
+        &:last-child {
+            span {
                 color: rgb(206, 1, 1);
             }
         }
 
-        &>div{
+        &>div {
             margin-left: 10px;
             min-height: 33px;
-            display:table;
-            &>span{
+            display: table;
+
+            &>span {
                 color: black;
-                display:table-cell;
-                vertical-align:middle;
+                display: table-cell;
+                vertical-align: middle;
             }
         }
     }
-    .ctx-menu-element:hover{
+
+    .ctx-menu-element:hover {
         background-color: var(--ctx-menu-hover);
     }
 }
 
-.container-test{
+.container-test {
     background-color: rgb(36, 33, 33);
     width: 100%;
     min-height: 700px;

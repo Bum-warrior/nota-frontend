@@ -1,7 +1,8 @@
-.text-editor-container{
+.text-editor-container {
     @media (max-width: 700px) {
         display: none;
     }
+
     background-color: var(--background-second);
     position: absolute;
     top:45px;
@@ -13,14 +14,16 @@
     display: flex;
     flex-direction: row;
 
-    .text-editor-half-screen{
+    .text-editor-half-screen {
         width: 50%;
-        .text-editor-field-wrapper{
+
+        .text-editor-field-wrapper {
             background-color: white;
             height: 100%;
             width: 100%;
             position: relative;
-            .text-editor-field{
+
+            .text-editor-field {
                 overflow-y: scroll;
                 height: 95%;
                 width: 95%;
@@ -34,12 +37,13 @@
             }
         }
 
-        .text-editor-display-wrapper{
+        .text-editor-display-wrapper {
             background-color: whiteSmoke;
             height: 100%;
             width: 100%;
             position: relative;
-            .text-editor-display{
+
+            .text-editor-display {
                 background-color: whitesmoke;
                 height: 95%;
                 width: 90%;
@@ -47,38 +51,41 @@
                 position: absolute;
                 top: 50%;
                 left: 52%;
-                transform: translate(-50%,-50%,);
+                transform: translate(-50%, -50%, );
                 overflow-y: scroll;
+
                 // styles for processed md
-                p{
-                    
-                }
-                li{
+                p {}
+
+                li {
                     margin: 0px 0px 5px 20px;
                 }
-                img{
+
+                img {
                     max-width: 400px;
                     max-height: 400px;
                     margin: 20px 5px 20px 20px;
                 }
-                a{
+
+                a {
                     color: var(--announcement);
-                    text-decoration: underline;
-                    &:hover{
+                    text-decoration: none;
+
+                    &:hover {
                         cursor: pointer;
                     }
                 }
-                blockquote{
+
+                blockquote {
                     background-color: var(--light-grey);
                     padding: 3px 20px;
                     letter-spacing: .1em;
                 }
-                *{
+
+                * {
                     margin: 10px 0;
                 }
             }
         }
     }
 }
-
-

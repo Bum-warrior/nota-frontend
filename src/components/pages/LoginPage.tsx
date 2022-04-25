@@ -1,38 +1,38 @@
 import axios from 'axios';
 import * as React from 'react';
 import { useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import config from '../../config'
 
 interface LoginPageProps {
-    
+
 }
- 
+
 const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
     const navigate = useNavigate();
     const [login, setlogin] = useState('');
     const [password, setpassword] = useState('');
 
     React.useEffect(() => {
-        console.log(login, "/",password)
+        console.log(login, "/", password)
     })
 
-    async function handleSubmit(){
-        try{
-            let req = await axios.post(config.BACKEND_ADDRES+'/auth/login', {
-                "login" : login.toString(),
+    async function handleSubmit() {
+        try {
+            let req = await axios.post(config.BACKEND_ADDRES + '/auth/login', {
+                "login": login.toString(),
                 "password": password.toString(),
             })
-            if(req.data.token){
-               localStorage.setItem('token', req.data.token);
+            if (req.data.token) {
+                localStorage.setItem('token', req.data.token);
             }
             navigate('/')
-        }catch (e){
+        } catch (e) {
             console.log(e)
-        }        
+        }
     }
 
-    return ( <div className='login-page-main'>
+    return (<div className='login-page-main'>
         <div className='login-page-container'>
             <div className='login-page-title'>
                 <span>Log In</span>
@@ -43,11 +43,11 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
                     handleSubmit();
                 }}>
                     <div className="login-page-block">
-                        <input placeholder='User name' onChange={(e) => setlogin(e.target.value)}/>
+                        <input placeholder='User name' onChange={(e) => setlogin(e.target.value)} />
                     </div>
                     <div className="login-page-block">
                         <input placeholder='Password' type={'password'}
-                        onChange={(e) => setpassword(e.target.value)}
+                            onChange={(e) => setpassword(e.target.value)}
                         />
                     </div>
                     <div className="login-page-footer">
@@ -60,7 +60,7 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = () => {
                 </form>
             </div>
         </div>
-    </div> );
+    </div>);
 }
- 
+
 export default LoginPage;

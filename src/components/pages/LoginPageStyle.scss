@@ -1,5 +1,5 @@
 // also used for register page
-.login-page-main{
+.login-page-main {
     width: 100%;
     height: 100%;
     // background-color: #FF3CAC;
@@ -8,22 +8,23 @@
 
     position: relative;
 
-    .login-page-container{
+    .login-page-container {
         width: 400px;
         height: 350px;
         border-radius: 1px;
-        
-        background-color: rgba(255,255,255,0.5);
+
+        background-color: rgba(255, 255, 255, 0.5);
         position: absolute;
         top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
-        .login-page-title{
+
+        .login-page-title {
             height: 70px;
             width: 100%;
             position: relative;
 
-            span{
+            span {
                 font-size: 32px;
                 width: fit-content;
                 position: absolute;
@@ -33,10 +34,11 @@
             }
         }
 
-        .login-page-body{
+        .login-page-body {
             width: 100%;
             height: 280px;
-            .login-page-form{
+
+            .login-page-form {
                 width: 100%;
                 height: 100%;
                 position: relative;
@@ -44,66 +46,75 @@
                 flex-direction: column;
                 justify-content: space-around;
 
-                .login-page-block{
+                .login-page-block {
                     margin: 0 auto;
-                    *{
+
+                    * {
                         display: block;
                     }
-                    
-                    input{
+
+                    input {
                         height: 40px;
                         width: 210px;
                         border: 0px solid black;
                         border-radius: 3px;
                         padding-left: 20px;
-                        &:focus{
+
+                        &:focus {
                             outline: none;
                         }
                     }
                 }
 
-                .login-page-footer{
+                .login-page-footer {
                     width: 60%;
                     height: 70px;
                     margin: 0 auto;
                     display: flex;
                     justify-content: space-around;
 
-                    button{
+                    button {
                         height: 40px;
                         border: 0px;
                         border-radius: 20px;
                         width: 110px;
-                        &:hover{
+
+                        &:hover {
                             cursor: pointer;
                         }
-                        &:first-of-type{
+
+                        &:first-of-type {
                             background-color: var(--positive);
                             transition: box-shadow 0.3s ease-in-out;
                             box-shadow: rgba(30, 215, 96, 0.6) 0px 0px 0px 0px;
-                            &:hover{
-                                
+
+                            &:hover {
+
                                 box-shadow: rgba(30, 215, 96, 0.6) 0px 7px 20px 0px;
                             }
                         }
-                        &:last-of-type{
+
+                        &:last-of-type {
                             background-color: rgb(216, 53, 25);
                             color: #ffffff;
                             transition: box-shadow 0.3s ease-in-out;
                             box-shadow: rgba(233, 20, 41, 0.6) 0px 0px 0px 0px;
-                            &:hover{
-                                
+
+                            &:hover {
+
                                 box-shadow: rgba(233, 20, 41, 0.6) 0px 7px 20px 0px;
                             }
                         }
                     }
-                    button.login-page-login{
+
+                    button.login-page-login {
                         background-color: var(--announcement);
                         color: #ffffff;
                         transition: box-shadow 0.3s ease-in-out;
                         box-shadow: rgba(13, 114, 234, 0.6) 0px 0px 0px 0px;
-                        &:hover{
-                            
+
+                        &:hover {
+
                             box-shadow: rgba(13, 114, 234, 0.6) 0px 7px 20px 0px;
                         }
                     }

@@ -2,13 +2,13 @@ import * as React from 'react';
 
 
 interface TimerPageProps {
-    
+
 }
- 
+
 const TimerPage: React.FunctionComponent<TimerPageProps> = () => {
-    return ( <div className='elem'>
+    return (<div className='elem'>
         Timer here
-    </div> );
+    </div>);
 }
- 
+
 export default TimerPage;

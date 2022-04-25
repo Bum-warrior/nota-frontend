@@ -1,4 +1,4 @@
-:root div[data-theme='dark'] *{
+:root div[data-theme='dark'] * {
     --background-main: #121212;
     --background-second: #242424;
     --backgroud-editor: rgb(255, 255, 255);
@@ -9,10 +9,10 @@
     --scrollbar-border: var(--background-second);
     --scrollbar-border-editor: var(--backgroud-editor);
     --scrollbar-border-md: var(--backgroud-md);
-    --scrollbar-hover: rgb(128,128,128);
+    --scrollbar-hover: rgb(128, 128, 128);
     --scrollbar-active: rgb(77, 77, 77);
-    --file-active-bg: rgb(75, 75, 75) ;
-    --file-active-text:var(#1d1d1d);
+    --file-active-bg: rgb(75, 75, 75);
+    --file-active-text: var(#1d1d1d);
     --file-line-hover: rgb(50, 50, 50);
     --file-editable-bg: var(--warning);
     --ctx-menu-hover: rgb(194, 194, 194);
@@ -27,9 +27,9 @@
 
     --filter: invert(98%) sepia(1%) saturate(4584%) hue-rotate(48deg) brightness(125%) contrast(60%);
 }
-  
-  
-:root div[data-theme='light'] *{
+
+
+:root div[data-theme='light'] * {
     --navbar-color: #E8B912;
     --text-color: white;
 }
